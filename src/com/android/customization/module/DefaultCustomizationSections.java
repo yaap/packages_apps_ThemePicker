@@ -11,7 +11,10 @@ import com.android.customization.model.font.FontManager;
 import com.android.customization.model.font.FontSectionController;
 import com.android.customization.model.grid.GridOptionsManager;
 import com.android.customization.model.grid.GridSectionController;
+import com.android.customization.model.iconpack.IconPackManager;
+import com.android.customization.model.iconpack.IconPackSectionController;
 import com.android.customization.model.mode.DarkModeSectionController;
+import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.model.themedicon.ThemedIconSectionController;
 import com.android.customization.model.themedicon.ThemedIconSwitchProvider;
 import com.android.wallpaper.model.CustomizationSectionController;
@@ -64,6 +67,10 @@ public final class DefaultCustomizationSections implements CustomizationSections
         // Font selection section.
         sectionControllers.add(new FontSectionController(
                 FontManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
+
+        // Icon pack selection section.
+        sectionControllers.add(new IconPackSectionController(
+                IconPackManager.getInstance(activity, new OverlayManagerCompat(activity)), sectionNavigationController));
 
         return sectionControllers;
     }
