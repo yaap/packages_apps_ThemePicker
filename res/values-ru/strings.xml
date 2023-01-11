@@ -1,22 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-     Copyright (C) 2018 The Android Open Source Project
-
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
- -->
-
-<resources xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <string name="app_name" msgid="1647136562008520313">"Обои и стиль"</string>
     <string name="theme_title" msgid="2144932106319405101">"Стиль"</string>
     <string name="clock_title" msgid="1974314575211361352">"Настр. цифербл."</string>
@@ -30,6 +13,7 @@
     <string name="grid_preview_card_content_description" msgid="8449383777584714842">"Предварительный просмотр сетки"</string>
     <string name="font_preview_content_description" msgid="128230439293337891">"Предпросмотр шрифта"</string>
     <string name="icon_preview_content_description" msgid="7761101284351952890">"Предпросмотр значка"</string>
+    <string name="icon_preview_card_content_description">@string/icon_preview_content_description</string>
     <string name="color_preview_content_description" msgid="4879120462082058124">"Предпросмотр цвета"</string>
     <string name="shape_preview_content_description" msgid="6479487796176550432">"Предпросмотр формы"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"Применено сейчас: <xliff:g id="ID_1">%1$s</xliff:g>"</string>
@@ -91,4 +75,7 @@
     <string name="preset_color_tab" msgid="3133391839341329314">"Основные цвета"</string>
     <string name="color_changed" msgid="7029571720331641235">"Цвет изменен"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"Динамически"</string>
+    <string name="font_title">Системный шрифт</string>
+    <string name="font_preview_card_content_description">Предпросмотр Шрифта</string>
+    <string name="icon_pack_title">Системный Пак Иконок</string>
 </resources>
