@@ -24,7 +24,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.android.customization.picker.notifications.ui.viewmodel.NotificationSectionViewModel
-import com.android.wallpaper.R
+import com.android.themepicker.R
 import com.google.android.material.materialswitch.MaterialSwitch
 import kotlinx.coroutines.launch
 

@@ -40,7 +40,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 
 import com.android.customization.module.logging.ThemesUserEventLogger;
 import com.android.customization.picker.mode.DarkModeSectionView;
-import com.android.wallpaper.R;
+import com.android.themepicker.R;
 import com.android.wallpaper.model.CustomizationSectionController;
 import com.google.android.material.materialswitch.MaterialSwitch;
 
