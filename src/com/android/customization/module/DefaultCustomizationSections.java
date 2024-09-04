@@ -36,11 +36,14 @@ import com.android.customization.picker.preview.ui.section.PreviewWithClockCarou
 import com.android.customization.picker.preview.ui.section.PreviewWithThemeSectionController;
 import com.android.customization.picker.quickaffordance.ui.section.KeyguardQuickAffordanceSectionController;
 import com.android.customization.picker.quickaffordance.ui.viewmodel.KeyguardQuickAffordancePickerViewModel;
+import com.android.customization.picker.settings.ui.section.ColorContrastSectionController;
 import com.android.customization.picker.settings.ui.section.MoreSettingsSectionController;
+import com.android.customization.picker.settings.ui.viewmodel.ColorContrastSectionViewModel;
 import com.android.wallpaper.config.BaseFlags;
 import com.android.wallpaper.model.CustomizationSectionController;
 import com.android.wallpaper.model.CustomizationSectionController.CustomizationSectionNavigationController;
 import com.android.wallpaper.model.PermissionRequester;
+import com.android.wallpaper.model.Screen;
 import com.android.wallpaper.model.WallpaperPreviewNavigator;
 import com.android.wallpaper.module.CurrentWallpaperInfoFactory;
 import com.android.wallpaper.module.CustomizationSections;
@@ -60,6 +63,8 @@ public final class DefaultCustomizationSections implements CustomizationSections
     private final ColorPickerViewModel.Factory mColorPickerViewModelFactory;
     private final KeyguardQuickAffordancePickerViewModel.Factory
             mKeyguardQuickAffordancePickerViewModelFactory;
+    private final ColorContrastSectionViewModel.Factory
+            mColorContrastSectionViewModelFactory;
     private final NotificationSectionViewModel.Factory mNotificationSectionViewModelFactory;
     private final BaseFlags mFlags;
     private final ClockCarouselViewModel.Factory mClockCarouselViewModelFactory;
@@ -73,6 +78,7 @@ public final class DefaultCustomizationSections implements CustomizationSections
             ColorPickerViewModel.Factory colorPickerViewModelFactory,
             KeyguardQuickAffordancePickerViewModel.Factory
                     keyguardQuickAffordancePickerViewModelFactory,
+            ColorContrastSectionViewModel.Factory colorContrastSectionViewModelFactory,
             NotificationSectionViewModel.Factory notificationSectionViewModelFactory,
             BaseFlags flags,
             ClockCarouselViewModel.Factory clockCarouselViewModelFactory,
@@ -92,6 +98,7 @@ public final class DefaultCustomizationSections implements CustomizationSections
         mThemedIconInteractor = themedIconInteractor;
         mColorPickerInteractor = colorPickerInteractor;
         mThemesUserEventLogger = themesUserEventLogger;
+        mColorContrastSectionViewModelFactory = colorContrastSectionViewModelFactory;
     }
 
     @Override
@@ -211,6 +218,13 @@ public final class DefaultCustomizationSections implements CustomizationSections
                                 mThemedIconSnapshotRestorer,
                                 mThemesUserEventLogger));
 
+                // Color contrast section
+                if (mFlags.isColorContrastControlEnabled()) {
+                    sectionControllers.add(
+                            new ColorContrastSectionController(new ViewModelProvider(activity,
+                                    mColorContrastSectionViewModelFactory)
+                                    .get(ColorContrastSectionViewModel.class), lifecycleOwner));
+                }
                 // App grid section.
                 sectionControllers.add(
                         new GridSectionController(
