@@ -22,8 +22,8 @@
 
     <include
         layout="@layout/clock_style_option"
-        android:layout_width="@dimen/floating_sheet_clock_style_option_width"
-        android:layout_height="@dimen/floating_sheet_clock_style_option_height" />
+        android:layout_width="@dimen/floating_sheet_clock_style_option_size"
+        android:layout_height="@dimen/floating_sheet_clock_style_option_size" />
 
     <View
         android:layout_width="match_parent"
@@ -31,6 +31,6 @@
 
     <include
         layout="@layout/clock_style_option"
-        android:layout_width="@dimen/floating_sheet_clock_style_option_width"
-        android:layout_height="@dimen/floating_sheet_clock_style_option_height" />
+        android:layout_width="@dimen/floating_sheet_clock_style_option_size"
+        android:layout_height="@dimen/floating_sheet_clock_style_option_size" />
 </LinearLayout>
