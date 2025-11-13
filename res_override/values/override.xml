@@ -30,4 +30,7 @@
     </string>
 
     <string name="launcher_overlayable_package" translatable="false">com.android.launcher3</string>
+
+    <!-- Package name of the Camera app to be used when previewing icon shape and theme -->
+    <string name="camera_package" translatable="false">com.android.camera2</string>
 </resources>
