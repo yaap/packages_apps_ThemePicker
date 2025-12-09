@@ -16,6 +16,7 @@
  */
 package com.android.customization.picker.color.data.repository
 
+import android.content.theming.ThemeStyle
 import android.util.Log
 import com.android.customization.model.CustomizationManager
 import com.android.customization.model.color.ColorCustomizationManager
@@ -23,7 +24,6 @@ import com.android.customization.model.color.ColorOption
 import com.android.customization.model.color.ColorOptionImpl
 import com.android.customization.picker.color.shared.model.ColorOptionModel
 import com.android.customization.picker.color.shared.model.ColorType
-import com.android.systemui.monet.Style
 import com.android.wallpaper.picker.customization.data.repository.WallpaperColorsRepository
 import com.android.wallpaper.picker.customization.shared.model.WallpaperColorsModel
 import javax.inject.Inject
@@ -142,11 +142,11 @@ constructor(
         val styleOrNull = colorManager.currentStyle
         val style = styleOrNull?.let {
             try {
-                Style.valueOf(it)
+                ThemeStyle.valueOf(it)
             } catch (e: IllegalArgumentException) {
-                Style.TONAL_SPOT
+                ThemeStyle.TONAL_SPOT
             }
-        } ?: Style.TONAL_SPOT
+        } ?: ThemeStyle.TONAL_SPOT
         val source = colorManager.currentColorSource
         val colorOptionBuilder = ColorOptionImpl.Builder()
         colorOptionBuilder.source = source
