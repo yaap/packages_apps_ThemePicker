@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,31 +15,46 @@
  */
 package com.android.customization.picker.color.ui.view
 
+import android.animation.ArgbEvaluator
 import android.annotation.ColorInt
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.Path
 import android.util.AttributeSet
-import android.view.View
+import com.android.themepicker.R
+import com.android.wallpaper.picker.option.ui.view.OptionItemBackground
 
 /**
  * Draw a color option icon, which is a quadrant circle that can show at most 4 different colors.
  */
-class ColorOptionIconView(
-    context: Context,
-    attrs: AttributeSet,
-) : View(context, attrs) {
+class ColorOptionIconView(context: Context, attrs: AttributeSet) :
+    OptionItemBackground(context, attrs) {
 
     private val paint = Paint().apply { style = Paint.Style.FILL }
 
-    private val oval = RectF()
+    private val path = Path()
 
-    private var color0 = DEFAULT_PLACEHOLDER_COLOR
-    private var color1 = DEFAULT_PLACEHOLDER_COLOR
-    private var color2 = DEFAULT_PLACEHOLDER_COLOR
-    private var color3 = DEFAULT_PLACEHOLDER_COLOR
+    // progress 0 is light theme and 1 is dark theme
+    var darkThemeProgress = 0f
+        private set
+
+    private val argbEvaluator = ArgbEvaluator()
+
+    private var lightThemeColor0 = DEFAULT_PLACEHOLDER_COLOR
+    private var lightThemeColor1 = DEFAULT_PLACEHOLDER_COLOR
+    private var lightThemeColor2 = DEFAULT_PLACEHOLDER_COLOR
+    private var lightThemeColor3 = DEFAULT_PLACEHOLDER_COLOR
+    private var darkThemeColor0 = DEFAULT_PLACEHOLDER_COLOR
+    private var darkThemeColor1 = DEFAULT_PLACEHOLDER_COLOR
+    private var darkThemeColor2 = DEFAULT_PLACEHOLDER_COLOR
+    private var darkThemeColor3 = DEFAULT_PLACEHOLDER_COLOR
+    private var strokeColor = DEFAULT_PLACEHOLDER_COLOR
+    private val strokeWidth =
+        context.resources
+            .getDimensionPixelSize(R.dimen.floating_sheet_color_option_stroke_width)
+            .toFloat()
 
     private var w = 0
     private var h = 0
@@ -51,15 +66,33 @@ class ColorOptionIconView(
      * @param color3 the color in the bottom right quadrant
      */
     fun bindColor(
-        @ColorInt color0: Int,
-        @ColorInt color1: Int,
-        @ColorInt color2: Int,
-        @ColorInt color3: Int,
+        @ColorInt lightThemeColor0: Int,
+        @ColorInt lightThemeColor1: Int,
+        @ColorInt lightThemeColor2: Int,
+        @ColorInt lightThemeColor3: Int,
+        @ColorInt darkThemeColor0: Int,
+        @ColorInt darkThemeColor1: Int,
+        @ColorInt darkThemeColor2: Int,
+        @ColorInt darkThemeColor3: Int,
     ) {
-        this.color0 = color0
-        this.color1 = color1
-        this.color2 = color2
-        this.color3 = color3
+        this.lightThemeColor0 = lightThemeColor0
+        this.lightThemeColor1 = lightThemeColor1
+        this.lightThemeColor2 = lightThemeColor2
+        this.lightThemeColor3 = lightThemeColor3
+        this.darkThemeColor0 = darkThemeColor0
+        this.darkThemeColor1 = darkThemeColor1
+        this.darkThemeColor2 = darkThemeColor2
+        this.darkThemeColor3 = darkThemeColor3
+        invalidate()
+    }
+
+    fun setDarkThemeProgress(progress: Float) {
+        this.darkThemeProgress = progress
+        invalidate()
+    }
+
+    fun bindStrokeColor(@ColorInt strokeColor: Int) {
+        this.strokeColor = strokeColor
         invalidate()
     }
 
@@ -70,7 +103,6 @@ class ColorOptionIconView(
     }
 
     override fun onDraw(canvas: Canvas) {
-        super.onDraw(canvas)
         // The w and h need to be an even number to avoid tiny pixel-level gaps between the pies
         w = w.roundDownToEven()
         h = h.roundDownToEven()
@@ -78,45 +110,58 @@ class ColorOptionIconView(
         val width = w.toFloat()
         val height = h.toFloat()
 
-        oval.set(0f, 0f, width, height)
+        val left = 2 * strokeWidth
+        val right = width - 2 * strokeWidth
+        val top = 2 * strokeWidth
+        val bottom = height - 2 * strokeWidth
+        val cornerRadius = ((right - left) / 2) * (1f - 0.25f * progress)
+        val save = canvas.save()
+        path.reset()
+        path.addRoundRect(left, top, right, bottom, cornerRadius, cornerRadius, Path.Direction.CW)
+        path.close()
+        canvas.clipPath(path)
+
         canvas.apply {
-            paint.color = color3
-            drawArc(
-                oval,
-                0f,
-                90f,
-                true,
-                paint,
-            )
-            paint.color = color2
-            drawArc(
-                oval,
-                90f,
-                90f,
-                true,
-                paint,
-            )
-            paint.color = color0
-            drawArc(
-                oval,
-                180f,
-                90f,
-                true,
-                paint,
-            )
-            paint.color = color1
-            drawArc(
-                oval,
-                270f,
-                90f,
-                true,
-                paint,
-            )
+            paint.style = Paint.Style.FILL
+            // top left
+            paint.color =
+                argbEvaluator.evaluate(darkThemeProgress, lightThemeColor0, darkThemeColor0) as Int
+            drawRect(0f, 0f, width / 2, height / 2, paint)
+            // top right
+            paint.color =
+                argbEvaluator.evaluate(darkThemeProgress, lightThemeColor1, darkThemeColor1) as Int
+            drawRect(width / 2, 0f, width, height / 2, paint)
+            // bottom left
+            paint.color =
+                argbEvaluator.evaluate(darkThemeProgress, lightThemeColor2, darkThemeColor2) as Int
+            drawRect(0f, height / 2, width / 2, height, paint)
+            // bottom right
+            paint.color =
+                argbEvaluator.evaluate(darkThemeProgress, lightThemeColor3, darkThemeColor3) as Int
+            drawRect(width / 2, height / 2, width, height, paint)
         }
+
+        canvas.restoreToCount(save)
+        paint.style = Paint.Style.STROKE
+        paint.color = strokeColor
+        paint.alpha = (255 * progress).toInt()
+        paint.strokeWidth = this.strokeWidth
+        val strokeCornerRadius = ((width - strokeWidth) / 2) * (1f - 0.25f * progress)
+        val halfStrokeWidth = 0.5f * strokeWidth
+        // Stroke is centered along the path, so account for half strokeWidth to stay within View
+        canvas.drawRoundRect(
+            halfStrokeWidth,
+            halfStrokeWidth,
+            width - halfStrokeWidth,
+            height - halfStrokeWidth,
+            strokeCornerRadius,
+            strokeCornerRadius,
+            paint,
+        )
     }
 
     companion object {
-        const val DEFAULT_PLACEHOLDER_COLOR = Color.BLACK
+        const val DEFAULT_PLACEHOLDER_COLOR = Color.TRANSPARENT
 
         fun Int.roundDownToEven(): Int {
             return if (this % 2 == 0) this else this - 1

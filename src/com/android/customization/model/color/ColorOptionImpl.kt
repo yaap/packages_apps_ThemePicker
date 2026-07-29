@@ -21,24 +21,36 @@ import android.content.theming.ThemeStyle
 import android.stats.style.StyleEnums
 import android.view.View
 import androidx.annotation.ColorInt
-import com.android.customization.model.color.ColorOptionsProvider.ColorSource
 import com.android.customization.picker.color.shared.model.ColorType
+import com.android.systemui.monet.ColorScheme
 import com.android.themepicker.R
 
 /**
  * Represents a color option in the revamped UI, it can be used for both wallpaper and preset colors
  */
-class ColorOptionImpl(
+open class ColorOptionImpl(
     title: String?,
-    overlayPackages: Map<String, String?>,
-    isDefault: Boolean,
     private val source: String?,
     seedColor: Int,
     @ThemeStyle.Type style: Int,
-    index: Int,
-    private val previewInfo: PreviewInfo,
-    val type: ColorType,
-) : ColorOption(title, overlayPackages, isDefault, seedColor, style, index) {
+    isThemeServiceEnabled: Boolean = false,
+    isColorPickerUpdateEnabled: Boolean = false,
+    overlayPackages: Map<String, String?> = emptyMap(),
+    isDefault: Boolean = false,
+    index: Int = -1,
+    private val previewInfo: PreviewInfo = PreviewInfo(intArrayOf(), intArrayOf()),
+    val type: ColorType = ColorType.WALLPAPER_COLOR,
+) :
+    ColorOption(
+        title,
+        overlayPackages,
+        isDefault,
+        seedColor,
+        style,
+        index,
+        isThemeServiceEnabled,
+        isColorPickerUpdateEnabled,
+    ) {
 
     class PreviewInfo(@ColorInt val lightColors: IntArray, @ColorInt val darkColors: IntArray) :
         ColorOption.PreviewInfo {
@@ -70,14 +82,63 @@ class ColorOptionImpl(
 
     override fun getSourceForLogging(): Int {
         return when (getSource()) {
-            ColorOptionsProvider.COLOR_SOURCE_PRESET -> StyleEnums.COLOR_SOURCE_PRESET_COLOR
-            ColorOptionsProvider.COLOR_SOURCE_HOME -> StyleEnums.COLOR_SOURCE_HOME_SCREEN_WALLPAPER
-            ColorOptionsProvider.COLOR_SOURCE_LOCK -> StyleEnums.COLOR_SOURCE_LOCK_SCREEN_WALLPAPER
+            ColorProviderUtil.COLOR_SOURCE_PRESET -> StyleEnums.COLOR_SOURCE_PRESET_COLOR
+            ColorProviderUtil.COLOR_SOURCE_HOME -> StyleEnums.COLOR_SOURCE_HOME_SCREEN_WALLPAPER
+            ColorProviderUtil.COLOR_SOURCE_LOCK -> StyleEnums.COLOR_SOURCE_LOCK_SCREEN_WALLPAPER
             else -> StyleEnums.COLOR_SOURCE_UNSPECIFIED
         }
     }
 
     override fun getStyleForLogging(): Int = ThemeStyle.toString(style).hashCode()
+
+    companion object {
+        /**
+         * Use this to build a simplified color seed option for use with Theme Service. It creates
+         * an instance of [ColorOptionImpl] for backwards code compatibility.
+         *
+         * Two color seed options are equivalent if they have the same seed color and source. The
+         * default style is not compared since a color seed option encapsulates the color seed
+         * primarily, and the style could be chosen separately to be paired with this color seed.
+         */
+        // TODO (b/440146498): after fully deprecating ColorCustomizationManager, simplify this
+        //  to output a standalone data class without dependence on ColorOptionImpl
+        fun buildSimplifiedSeedOption(
+            title: String?,
+            source: String?,
+            seedColor: Int,
+            @ThemeStyle.Type defaultStyle: Int,
+        ): ColorOptionImpl {
+            val lightColors =
+                ColorProviderUtil.getColorPreview(
+                    colorScheme = ColorScheme(seedColor, /* darkTheme= */ false, defaultStyle),
+                    colorSource = source,
+                    darkTheme = false,
+                    isColorPickerUpdateEnabled = true,
+                )
+            val darkColors =
+                ColorProviderUtil.getColorPreview(
+                    colorScheme = ColorScheme(seedColor, /* darkTheme= */ true, defaultStyle),
+                    colorSource = source,
+                    darkTheme = true,
+                    isColorPickerUpdateEnabled = true,
+                )
+            return object :
+                ColorOptionImpl(
+                    title = title,
+                    source = source,
+                    seedColor = seedColor,
+                    style = defaultStyle,
+                    previewInfo = PreviewInfo(lightColors, darkColors),
+                    isThemeServiceEnabled = true,
+                ) {
+                override fun isEquivalent(other: ColorOption?): Boolean {
+                    return other is ColorOptionImpl &&
+                        this.source == other.source &&
+                        this.seedColor == other.seedColor
+                }
+            }
+        }
+    }
 
     class Builder {
         var title: String? = null
@@ -86,25 +147,29 @@ class ColorOptionImpl(
 
         @ColorInt var darkColors: IntArray = intArrayOf()
 
-        @ColorSource var source: String? = null
+        @ColorProviderUtil.ColorSource var source: String? = null
         var isDefault = false
         @ColorInt var seedColor = 0
         @ThemeStyle.Type var style = ThemeStyle.TONAL_SPOT
         var index = 0
         var packages: MutableMap<String, String?> = HashMap()
         var type = ColorType.WALLPAPER_COLOR
+        var isThemeServiceEnabled = false
+        var isColorPickerUpdateEnabled = false
 
         fun build(): ColorOptionImpl {
             return ColorOptionImpl(
-                title,
-                packages,
-                isDefault,
-                source,
-                seedColor,
-                style,
-                index,
-                createPreviewInfo(),
-                type,
+                title = title,
+                source = source,
+                seedColor = seedColor,
+                style = style,
+                isThemeServiceEnabled = isThemeServiceEnabled,
+                isColorPickerUpdateEnabled = isColorPickerUpdateEnabled,
+                overlayPackages = packages,
+                isDefault = isDefault,
+                index = index,
+                previewInfo = createPreviewInfo(),
+                type = type,
             )
         }
 

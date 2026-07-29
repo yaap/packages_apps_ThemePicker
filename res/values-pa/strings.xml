@@ -49,6 +49,8 @@
     <string name="clock_font_editor_apply" msgid="5965611025879105293">"ਘੜੀ ਦੇ ਫ਼ੌਟਾਂ ਵਿੱਚ ਕੀਤੀਆਂ ਤਬਦੀਲੀਆਂ ਲਾਗੂ ਕਰੋ"</string>
     <string name="clock_font_editor_revert" msgid="5307491447405753061">"ਘੜੀ ਦੇ ਫ਼ੌਟਾਂ ਵਿੱਚ ਕੀਤੀਆਂ ਤਬਦੀਲੀਆਂ ਨੂੰ ਅਣਕੀਤਾ ਕਰੋ"</string>
     <string name="clock_style_round_clock" msgid="1694787561051568664">"ਰਾਉਂਡ ਕਲਾਕ"</string>
+    <string name="clock_style_sharp_clock" msgid="1534034367317255693">"ਸ਼ਾਰਪ ਕਲੌਕ"</string>
+    <string name="change_clock_style_content_description" msgid="5831805715265928702">"<xliff:g id="ID_1">%1$s</xliff:g>। ਘੜੀ ਦਾ ਸਟਾਈਲ ਬਦਲਣ ਲਈ ਟੈਪ ਕਰੋ।"</string>
     <string name="clock_style_update_toast" msgid="6933583129162805444">"ਸਟਾਈਲ ਨੂੰ ਬਦਲ ਕੇ <xliff:g id="ID_1">%1$s</xliff:g> ਕੀਤਾ ਗਿਆ। ਅਣਕੀਤਾ ਕਰਨ ਲਈ ਦੁਬਾਰਾ ਟੈਪ ਕਰੋ।"</string>
     <string name="clock_style_round" msgid="261319982647730366">"ਗੋਲ"</string>
     <string name="clock_style_sharp" msgid="453991773733285628">"ਸਪਸ਼ਟ"</string>
@@ -62,6 +64,9 @@
     <string name="app_icons_style_default" msgid="2568057806991656437">"ਪੂਰਵ-ਨਿਰਧਾਰਿਤ"</string>
     <string name="app_icons_style_minimal" msgid="4905227469969513136">"ਮਿਨੀਮਲ"</string>
     <string name="app_icons_shape" msgid="2539949450435849188">"ਆਕ੍ਰਿਤੀ"</string>
+    <string name="app_labels" msgid="4290052401987798752">"ਐਪ ਲੇਬਲ"</string>
+    <string name="app_names" msgid="708691253698583169">"ਨਾਮ"</string>
+    <string name="show_app_names" msgid="522703901790555973">"ਐਪ ਦੇ ਨਾਮ ਦਿਖਾਓ"</string>
     <string name="app_icons_style" msgid="993356162262531521">"ਸਟਾਈਲ"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"ਲਾਗੂ ਕਰੋ"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"ਸੰਪਾਦਨ ਕਰਨ ਲਈ ਟੈਪ ਕਰੋ"</string>
@@ -74,7 +79,7 @@
     <string name="shape_preview_content_description" msgid="6479487796176550432">"ਆਕਾਰ ਦੀ ਪੂਰਵ-ਝਲਕ"</string>
     <string name="option_applied_description" msgid="5022305212078053534">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫ਼ਿਲਹਾਲ ਲਾਗੂ ਕੀਤਾ ਗਿਆ"</string>
     <string name="option_applied_previewed_description" msgid="5269654286638446858">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫਿਲਹਾਲ ਲਾਗੂ ਕਰਕੇ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ"</string>
-    <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫਿਲਹਾਲ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ"</string>
+    <string name="option_previewed_description" msgid="3467217598865047661">"<xliff:g id="ID_1">%1$s</xliff:g>, ਫ਼ਿਲਹਾਲ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ"</string>
     <string name="option_change_applied_previewed_description" msgid="9197311327728570816">"<xliff:g id="ID_1">%1$s</xliff:g>, ਉਸ ਵਿਕਲਪ ਨੂੰ ਬਦਲੋ ਜਿਸ ਨੂੰ ਚੁਣਿਆ ਗਿਆ ਅਤੇ ਜਿਸ ਦੀ ਪੂਰਵ-ਝਲਕ ਦੇਖੀ ਗਈ ਹੈ"</string>
     <string name="theme_description" msgid="3697012391785254635">"ਫੌਂਟ: <xliff:g id="ID_1">%1$s</xliff:g>, ਪ੍ਰਤੀਕ: <xliff:g id="ID_2">%2$s</xliff:g>, ਆਕ੍ਰਿਤੀ: <xliff:g id="ID_3">%3$s</xliff:g>, ਰੰਗ: <xliff:g id="ID_4">%4$s</xliff:g>"</string>
     <string name="default_theme_title" msgid="2555741736622366797">"ਪੂਰਵ-ਨਿਰਧਾਰਿਤ"</string>
@@ -132,13 +137,16 @@
     <string name="beta_title" msgid="8703819523760746458">"ਬੀਟਾ"</string>
     <string name="gird_picker_entry_content_description" msgid="9087651470212293439">"ਐਪ ਗ੍ਰਿਡ ਬਦਲੋ"</string>
     <string name="wallpaper_color_tab" msgid="1447926591721403840">"ਵਾਲਪੇਪਰ ਦੇ ਰੰਗ"</string>
-    <string name="wallpaper_color_subheader" msgid="4044464573669965670">"ਵਾਲਪੇਪਰ ਵਿੱਚ ਪ੍ਰਤੀਕਾਂ, ਲਿਖਤ ਅਤੇ ਹੋਰ ਚੀਜ਼ਾਂ ਦੇ ਮੇਲ ਖਾਂਦੇ ਰੰਗ"</string>
+    <string name="wallpaper_color_subheader" msgid="4044464573669965670">"ਤੁਹਾਡੇ ਵਾਲਪੇਪਰ ਵਿੱਚ ਪ੍ਰਤੀਕਾਂ, ਲਿਖਤ ਅਤੇ ਹੋਰ ਚੀਜ਼ਾਂ ਦੇ ਮੇਲ ਖਾਂਦੇ ਰੰਗ"</string>
     <string name="wallpaper_color_title" msgid="5687965239180986458">"ਵਾਲਪੇਪਰ ਦਾ ਰੰਗ"</string>
     <string name="preset_color_tab" msgid="3133391839341329314">"ਮੂਲ ਰੰਗ"</string>
     <string name="preset_color_tab_2" msgid="1444107326712562538">"ਹੋਰ ਰੰਗ"</string>
     <string name="preset_color_subheader" msgid="8230588536141279371">"ਆਪਣੇ ਪ੍ਰਤੀਕਾਂ, ਘੜੀ ਅਤੇ ਹੋਰ ਚੀਜ਼ਾਂ ਲਈ ਕੋਈ ਰੰਗ ਚੁਣੋ"</string>
     <string name="color_changed" msgid="7029571720331641235">"ਰੰਗ ਬਦਲਿਆ ਗਿਆ"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"ਪਰਿਵਰਤਨਸ਼ੀਲ"</string>
+    <string name="freeform_color_title" msgid="7237399756373189892">"ਤੁਹਾਡੇ ਰੰਗ"</string>
+    <string name="wallpaper_color_title_2" msgid="5292059876778066808">"ਤੁਹਾਡੇ ਵਾਲਪੇਪਰ ਦੇ ਰੰਗ"</string>
+    <string name="cmf_color_title" msgid="3224736567184119951">"ਹਾਰਡਵੇਅਰ ਦੇ ਰੰਗ"</string>
     <string name="color_picker_title" msgid="6666830057938082864">"ਸਿਸਟਮ ਦੇ ਰੰਗ"</string>
     <string name="system_colors_title" msgid="8011422955674152731">"ਰੰਗ"</string>
     <string name="screen_saver_title" msgid="4178511806237734356">"ਸਕ੍ਰੀਨ ਸੇਵਰ"</string>
@@ -167,11 +175,19 @@
     <string name="content_description_neutral_color_option" msgid="3385443834001275301">"ਪ੍ਰਾਇਮਰੀ ਨਿਰਪੱਖ ਥੀਮ"</string>
     <string name="content_description_vibrant_color_option" msgid="2230249305878632821">"ਪ੍ਰਾਇਮਰੀ ਵਾਈਬਰੈਂਟ ਥੀਮ"</string>
     <string name="content_description_expressive_color_option" msgid="6081295313456341282">"ਪ੍ਰਾਇਮਰੀ ਭਾਵਪੂਰਨ ਥੀਮ"</string>
+    <string name="color_variant_option_label_neutral" msgid="4412085293640372330">"ਨਿਰਪੱਖ"</string>
+    <string name="color_variant_option_label_soft" msgid="5073290767548293847">"ਸਾਫ਼ਟ"</string>
+    <string name="color_variant_option_label_bright" msgid="3764688816491282376">"ਸ਼ਾਨਦਾਰ"</string>
+    <string name="color_variant_option_label_bold" msgid="7239402636388565778">"ਬੋਲਡ"</string>
+    <string name="color_variant_editor_apply" msgid="6735218825751029812">"ਥੀਮ ਸਟਾਈਲ ਤਬਦੀਲੀ ਲਾਗੂ ਕਰੋ"</string>
+    <string name="color_variant_editor_revert" msgid="1786509144393262567">"ਥੀਮ ਸਟਾਈਲ ਤਬਦੀਲੀ ਨੂੰ ਅਣਕੀਤਾ ਕਰੋ"</string>
+    <string name="color_freeform_editor_description" msgid="1019960558215074662">"ਕੋਈ ਰੰਗ ਚੁਣੋ"</string>
     <string name="content_description_default_color_option" msgid="7011899327541080695">"ਰੰਗ ਦਾ ਪੂਰਵ-ਨਿਰਧਾਰਿਤ ਵਿਕਲਪ"</string>
     <string name="content_description_color_option" msgid="4169813692012119578">"ਰੰਗ ਦਾ ਵਿਕਲਪ <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="scroll_forward_and_select" msgid="6156132388656395769">"ਕੋਈ ਵੱਖਰਾ ਘੜੀ ਦਾ ਡਾਇਲ ਚੁਣਨ ਲਈ ਖੱਬੇ ਪਾਸੇ ਵੱਲ ਸਵਾਈਪ ਕਰੋ"</string>
     <string name="scroll_backward_and_select" msgid="5472202348434803757">"ਕੋਈ ਵੱਖਰਾ ਘੜੀ ਦਾ ਡਾਇਲ ਚੁਣਨ ਲਈ ਸੱਜੇ ਪਾਸੇ ਵੱਲ ਸਵਾਈਪ ਕਰੋ"</string>
     <string name="custom_clocks_label" msgid="8168419717593569347">"ਵਿਉਂਤਬੱਧ ਘੜੀਆਂ"</string>
     <string name="clock_face_width" msgid="5818129719338363570">"ਘੜੀ ਦੇ ਫ਼ੇਸ ਦੀ ਚੌੜਾਈ"</string>
-    <string name="slider_state_description_template" msgid="1028160527998877233">"%1$d, ਰੇਂਜ %2$d ਤੋਂ %3$d ਤੱਕ"</string>
+    <string name="enabled_slider_state_description_template" msgid="110185389957126478">"%1$d, ਰੇਂਜ %2$d ਤੋਂ %3$d ਤੱਕ"</string>
+    <string name="disabled_slider_state_description_template" msgid="660230299054431711">"ਬੰਦ ਕੀਤਾ ਗਿਆ, %1$d, ਰੇਂਜ %2$d ਤੋਂ %3$d ਤੱਕ"</string>
 </resources>

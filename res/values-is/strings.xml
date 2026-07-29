@@ -34,7 +34,7 @@
     <string name="clock_color_orange" msgid="4175805201144275804">"Appelsínugulur"</string>
     <string name="clock_color_yellow" msgid="7391699163247349977">"Gulur"</string>
     <string name="clock_color_green" msgid="1991157556500156596">"Grænn"</string>
-    <string name="clock_color_blue" msgid="4037792003465759149">"BLÁR"</string>
+    <string name="clock_color_blue" msgid="4037792003465759149">"Blár"</string>
     <string name="clock_color_indigo" msgid="8910855386698452917">"Dimmfjólublár"</string>
     <string name="clock_color_violet" msgid="3454503847169375826">"Fjólublár"</string>
     <string name="clock_color_gray" msgid="9221530636948859231">"Grár"</string>
@@ -49,6 +49,8 @@
     <string name="clock_font_editor_apply" msgid="5965611025879105293">"Breyta leturgerð klukku"</string>
     <string name="clock_font_editor_revert" msgid="5307491447405753061">"Afturkalla breytingar á leturgerð klukku"</string>
     <string name="clock_style_round_clock" msgid="1694787561051568664">"Hringlaga klukka"</string>
+    <string name="clock_style_sharp_clock" msgid="1534034367317255693">"Beitt klukka"</string>
+    <string name="change_clock_style_content_description" msgid="5831805715265928702">"<xliff:g id="ID_1">%1$s</xliff:g>. Ýttu til að breyta stíl klukkunnar."</string>
     <string name="clock_style_update_toast" msgid="6933583129162805444">"Stíl var breytt í <xliff:g id="ID_1">%1$s</xliff:g>. Ýttu aftur til að afturkalla."</string>
     <string name="clock_style_round" msgid="261319982647730366">"hringlaga"</string>
     <string name="clock_style_sharp" msgid="453991773733285628">"skarpan"</string>
@@ -60,8 +62,11 @@
     <string name="app_icons_theme_default" msgid="4773453045331265070">"sjálfgefið"</string>
     <string name="app_icons_theme_themed" msgid="6539464818104931856">"í þema"</string>
     <string name="app_icons_style_default" msgid="2568057806991656437">"Sjálfgefið"</string>
-    <string name="app_icons_style_minimal" msgid="4905227469969513136">"Minimalískt"</string>
+    <string name="app_icons_style_minimal" msgid="4905227469969513136">"Mínimalískt"</string>
     <string name="app_icons_shape" msgid="2539949450435849188">"Form"</string>
+    <string name="app_labels" msgid="4290052401987798752">"Forritsmerki"</string>
+    <string name="app_names" msgid="708691253698583169">"Heiti"</string>
+    <string name="show_app_names" msgid="522703901790555973">"Sýna heiti forrita"</string>
     <string name="app_icons_style" msgid="993356162262531521">"Stíll"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Nota"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Ýttu til að breyta"</string>
@@ -139,6 +144,9 @@
     <string name="preset_color_subheader" msgid="8230588536141279371">"Veldu hvaða lit sem er fyrir tákn, klukku og fleira"</string>
     <string name="color_changed" msgid="7029571720331641235">"Lit breytt"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"Breytilegt"</string>
+    <string name="freeform_color_title" msgid="7237399756373189892">"Litirnir þínir"</string>
+    <string name="wallpaper_color_title_2" msgid="5292059876778066808">"Veggfóðurslitirnir þínir"</string>
+    <string name="cmf_color_title" msgid="3224736567184119951">"Vélbúnaðarlitir"</string>
     <string name="color_picker_title" msgid="6666830057938082864">"Kerfislitir"</string>
     <string name="system_colors_title" msgid="8011422955674152731">"Litir"</string>
     <string name="screen_saver_title" msgid="4178511806237734356">"Skjávari"</string>
@@ -167,11 +175,19 @@
     <string name="content_description_neutral_color_option" msgid="3385443834001275301">"Hlutlaust aðalþema"</string>
     <string name="content_description_vibrant_color_option" msgid="2230249305878632821">"Líflegt aðalþema"</string>
     <string name="content_description_expressive_color_option" msgid="6081295313456341282">"Tjáningarríkt aðalþema"</string>
+    <string name="color_variant_option_label_neutral" msgid="4412085293640372330">"Hlutlaust"</string>
+    <string name="color_variant_option_label_soft" msgid="5073290767548293847">"Mjúkt"</string>
+    <string name="color_variant_option_label_bright" msgid="3764688816491282376">"Bjart"</string>
+    <string name="color_variant_option_label_bold" msgid="7239402636388565778">"Feitletur"</string>
+    <string name="color_variant_editor_apply" msgid="6735218825751029812">"Virkja breytingu á þemastíl"</string>
+    <string name="color_variant_editor_revert" msgid="1786509144393262567">"Afturkalla breytingu á þemastíl"</string>
+    <string name="color_freeform_editor_description" msgid="1019960558215074662">"Veldu lit"</string>
     <string name="content_description_default_color_option" msgid="7011899327541080695">"Sjálfgefinn litavalkostur"</string>
     <string name="content_description_color_option" msgid="4169813692012119578">"Litavalkostur <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="scroll_forward_and_select" msgid="6156132388656395769">"Strjúktu til vinstri til að velja aðra klukku"</string>
     <string name="scroll_backward_and_select" msgid="5472202348434803757">"Strjúktu til hægri til að velja aðra klukku"</string>
     <string name="custom_clocks_label" msgid="8168419717593569347">"Sérsniðnar klukkur"</string>
     <string name="clock_face_width" msgid="5818129719338363570">"Breidd úrskífu"</string>
-    <string name="slider_state_description_template" msgid="1028160527998877233">"%1$d, svið frá %2$d til %3$d"</string>
+    <string name="enabled_slider_state_description_template" msgid="110185389957126478">"%1$d, frá %2$d til %3$d"</string>
+    <string name="disabled_slider_state_description_template" msgid="660230299054431711">"slökkt, %1$d, frá %2$d til %3$d"</string>
 </resources>

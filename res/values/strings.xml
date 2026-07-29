@@ -111,8 +111,14 @@
     <!-- Description for clock font editor axis revert button. [CHAR LIMIT=NONE] -->
     <string name="clock_font_editor_revert">Undo clock font changes</string>
 
-    <!-- Description for a clock style setting that toggles the clock font between one with rounded corners and one without. [CHAR LIMIT=NONE] -->
+    <!-- Description for a round clock style. [CHAR LIMIT=NONE] -->
     <string name="clock_style_round_clock">Round clock</string>
+
+    <!-- Description for a clock style setting for a clock font with sharp corners. [CHAR LIMIT=NONE] -->
+    <string name="clock_style_sharp_clock">Sharp clock</string>
+
+    <!-- Content description for the clock face to announce the current style and the action to change it. [CHAR LIMIT=NONE] -->
+    <string name="change_clock_style_content_description"><xliff:g name="clock_style" example="Round clock">%1$s</xliff:g>. Tap to change clock style.</string>
 
     <!-- Toast message to notify that the clock style is updated when they tap on the clock face. They can tap again to undo. [CHAR LIMIT=NONE] -->
     <string name="clock_style_update_toast">Style changed to <xliff:g name="font_name">%1$s</xliff:g>. Tap again to undo.</string>
@@ -161,6 +167,15 @@
 
     <!-- Title of a tab to change the app icon shape [CHAR LIMIT=15] -->
     <string name="app_icons_shape">Shape</string>
+
+    <!-- Title of a toggle to show or hide the app labels. Show when toggled on [CHAR LIMIT=35] -->
+    <string name="app_labels">App labels</string>
+
+    <!-- Title of a tab to show or hide the app names on the home screen [CHAR LIMIT=15] -->
+    <string name="app_names">Names</string>
+
+    <!-- Title of a toggle to show or hide the app names on the home scree. Show when toggled on [CHAR LIMIT=35] -->
+    <string name="show_app_names">Show app names</string>
 
     <!-- Title of a tab to change the app icon theme [CHAR LIMIT=15] -->
     <string name="app_icons_style">Style</string>
@@ -415,6 +430,14 @@
     <!-- Title of a section of color selection option that obtains colors automatically from the
         wallpaper instead of a set color [CHAR LIMIT=15] -->
     <string name="adaptive_color_title">Dynamic</string>
+    <!-- The title for the list of color options custom created by the user. [CHAR_LIMIT=20]-->
+    <string name="freeform_color_title">Your colors</string>
+    <!-- The title for the list of color options generated based on the user's wallpaper.
+        [CHAR_LIMIT=20]-->
+    <string name="wallpaper_color_title_2">Your wallpaper colors</string>
+    <!-- The title for the list of preset color options offered based on the user's device color.
+        [CHAR_LIMIT=20]-->
+    <string name="cmf_color_title">Hardware colors</string>
     <!--
     Title for a screen where the user can configure the system colors by selecting from a list of
     color options.
@@ -622,6 +645,51 @@
     <string name="content_description_expressive_color_option">Primary expressive theme</string>
 
     <!--
+    Label for an option in the color variant editor that applies a neutral theme style.
+    [CHAR LIMIT=16].
+    -->
+    <string name="color_variant_option_label_neutral">Neutral</string>
+
+    <!--
+    Label for an option in the color variant editor that applies a soft theme style.
+    [CHAR LIMIT=16].
+    -->
+    <string name="color_variant_option_label_soft">Soft</string>
+
+    <!--
+    Label for an option in the color variant editor that applies a bright theme style.
+    [CHAR LIMIT=16].
+    -->
+    <string name="color_variant_option_label_bright">Bright</string>
+
+    <!--
+    Label for an option in the color variant editor that applies a bold theme style.
+    [CHAR LIMIT=16].
+    -->
+    <string name="color_variant_option_label_bold">Bold</string>
+
+    <!-- Content description for a color variant editor apply button. The editor provides different
+     color scheme options for theming the device based on a user-selected color seed.
+
+     [CHAR LIMIT=NONE]
+     -->
+    <string name="color_variant_editor_apply">Apply theme style change</string>
+
+    <!-- Content description for a color variant editor revert button. The editor provides different
+     color scheme options for theming the device based on a user-selected color seed.
+
+     [CHAR LIMIT=NONE]
+     -->
+    <string name="color_variant_editor_revert">Undo theme style change</string>
+
+    <!--
+    Description shown in the freeform color editor of the system colors setting, which enables users
+    to select a hue and tone to create a custom system color.
+    [CHAR LIMIT=55].
+    -->
+    <string name="color_freeform_editor_description">Select a color</string>
+
+    <!--
     Accessibility string for a button that allows the user to select the default color for their
     lock screen clock on the device. This is shown next to other buttons that allow the user to
     select from a set of custom colors.
@@ -663,9 +731,17 @@
     <string name="clock_face_width">Clock face width</string>
 
     <!--
-    Accessibility announcement template for a numerical range.
-    %1$d is the current value, %1$d is the minimum value, %2$d is the maximum value.
-    Example: "value 3, range from 1 to 7". [CHAR LIMIT=none]
+    Accessibility announcement template for a numerical range for an enabled slider.
+    %1$d is the current value, %2$d is the minimum value, %3$d is the maximum value.
+    Example: "enabled 3, range from 1 to 7". [CHAR LIMIT=none]
     -->
-    <string name="slider_state_description_template">%1$d, range from %2$d to %3$d</string>
+    <string name="enabled_slider_state_description_template">%1$d, range from %2$d to %3$d</string>
+
+    <!--
+    Accessibility announcement template for a numerical range for a disabled slider.
+    %1$d is the current value, %2$d is the minimum value, %3$d is the maximum value.
+    Example: "disabled 3, range from 1 to 7". [CHAR LIMIT=none]
+    -->
+    <string name="disabled_slider_state_description_template">disabled, %1$d, range from %2$d to %3$d</string>
+
 </resources>

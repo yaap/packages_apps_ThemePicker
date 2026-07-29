@@ -23,12 +23,12 @@ import androidx.test.core.app.ApplicationProvider
 import com.android.customization.model.CustomizationManager
 import com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_COLOR
 import com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_SYSTEM_PALETTE
-import com.android.customization.model.color.ColorOptionsProvider.COLOR_SOURCE_HOME
-import com.android.customization.model.color.ColorOptionsProvider.COLOR_SOURCE_PRESET
-import com.android.customization.model.color.ColorOptionsProvider.OVERLAY_COLOR_BOTH
-import com.android.customization.model.color.ColorOptionsProvider.OVERLAY_COLOR_INDEX
-import com.android.customization.model.color.ColorOptionsProvider.OVERLAY_COLOR_SOURCE
-import com.android.customization.model.color.ColorOptionsProvider.OVERLAY_THEME_STYLE
+import com.android.customization.model.color.ColorProviderUtil.COLOR_SOURCE_HOME
+import com.android.customization.model.color.ColorProviderUtil.COLOR_SOURCE_PRESET
+import com.android.customization.model.color.ColorProviderUtil.OVERLAY_COLOR_BOTH
+import com.android.customization.model.color.ColorProviderUtil.OVERLAY_COLOR_INDEX
+import com.android.customization.model.color.ColorProviderUtil.OVERLAY_COLOR_SOURCE
+import com.android.customization.model.color.ColorProviderUtil.OVERLAY_THEME_STYLE
 import com.android.customization.model.theme.OverlayManagerCompat
 import com.android.customization.picker.color.shared.model.ColorType
 import com.google.common.truth.Truth.assertThat
@@ -50,7 +50,7 @@ class ColorCustomizationManagerTest {
 
     @get:Rule val rule: MockitoRule = MockitoJUnit.rule()
 
-    @Mock private lateinit var provider: ColorOptionsProvider
+    @Mock private lateinit var provider: ColorProvider
     @Mock private lateinit var mockOM: OverlayManagerCompat
 
     private lateinit var manager: ColorCustomizationManager
@@ -140,29 +140,31 @@ class ColorCustomizationManagerTest {
 
     private fun getPresetColorOption(index: Int): ColorOptionImpl {
         return ColorOptionImpl(
-            "fake color",
-            mapOf("fake_package" to "fake_color"),
-            /* isDefault= */ false,
-            COLOR_SOURCE_PRESET,
-            12345,
-            ThemeStyle.TONAL_SPOT,
-            index,
-            ColorOptionImpl.PreviewInfo(intArrayOf(0), intArrayOf(0)),
-            ColorType.PRESET_COLOR,
+            title = "fake color",
+            source = COLOR_SOURCE_PRESET,
+            seedColor = 12345,
+            style = ThemeStyle.TONAL_SPOT,
+            isThemeServiceEnabled = false,
+            overlayPackages = mapOf("fake_package" to "fake_color"),
+            isDefault = false,
+            index = index,
+            previewInfo = ColorOptionImpl.PreviewInfo(intArrayOf(0), intArrayOf(0)),
+            type = ColorType.PRESET_COLOR,
         )
     }
 
     private fun getWallpaperColorOption(index: Int): ColorOptionImpl {
         return ColorOptionImpl(
-            "fake color",
-            mapOf("fake_package" to "fake_color"),
-            /* isDefault= */ false,
-            COLOR_SOURCE_HOME,
-            12345,
-            ThemeStyle.TONAL_SPOT,
-            index,
-            ColorOptionImpl.PreviewInfo(intArrayOf(0), intArrayOf(0)),
-            ColorType.WALLPAPER_COLOR,
+            title = "fake color",
+            source = COLOR_SOURCE_HOME,
+            seedColor = 12345,
+            style = ThemeStyle.TONAL_SPOT,
+            isThemeServiceEnabled = false,
+            overlayPackages = mapOf("fake_package" to "fake_color"),
+            isDefault = false,
+            index = index,
+            previewInfo = ColorOptionImpl.PreviewInfo(intArrayOf(0), intArrayOf(0)),
+            type = ColorType.WALLPAPER_COLOR,
         )
     }
 

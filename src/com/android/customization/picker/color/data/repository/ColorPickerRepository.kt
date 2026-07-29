@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,7 +16,8 @@
  */
 package com.android.customization.picker.color.data.repository
 
-import com.android.customization.picker.color.shared.model.ColorOptionModel
+import android.content.theming.ThemeStyle
+import com.android.customization.model.color.ColorOption
 import com.android.customization.picker.color.shared.model.ColorType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,18 +27,25 @@ import kotlinx.coroutines.flow.StateFlow
  * system color.
  */
 interface ColorPickerRepository {
-    /** Whether the system color is in the process of being updated */
-    val isApplyingSystemColor: StateFlow<Boolean>
-
     /** List of wallpaper and preset color options on the device, categorized by Color Type */
-    val colorOptions: Flow<Map<ColorType, List<ColorOptionModel>>>
+    val colorOptions: Flow<List<Pair<ColorType, List<ColorOption>>>>
 
-    /** Selects a color option with optimistic update */
-    suspend fun select(colorOptionModel: ColorOptionModel)
+    /** The system selected color option from the generated list of color options */
+    val selectedColorOption: Flow<ColorOption?>
 
-    /** Returns the current selected color option based on system settings */
-    fun getCurrentColorOption(): ColorOptionModel
+    /** List of theme styles use to build color options, of the type [ThemeStyle] */
+    val styleList: List<Int>
 
-    /** Returns the current selected color source based on system settings */
-    fun getCurrentColorSource(): String?
+    /** The system selected theme style, used in the color seed and variant picker */
+    val selectedStyle: Flow<Int?>
+
+    val freeformColorHue: StateFlow<Float?>
+
+    /** Selects a color option and returns whether the operation was successful */
+    suspend fun apply(colorOption: ColorOption): Boolean
+
+    /** Selects a color option and style and returns whether the operation was successful */
+    suspend fun apply(colorOption: ColorOption, @ThemeStyle.Type style: Int): Boolean
+
+    fun saveFreeformColor(hue: Float)
 }

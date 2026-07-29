@@ -49,6 +49,8 @@
     <string name="clock_font_editor_apply" msgid="5965611025879105293">"ଘଡ଼ିର ଫଣ୍ଟରେ କରାଯାଇଥିବା ପରିବର୍ତ୍ତନକୁ ଲାଗୁ କରନ୍ତୁ"</string>
     <string name="clock_font_editor_revert" msgid="5307491447405753061">"ଘଡ଼ିର ଫଣ୍ଟରେ କରାଯାଇଥିବା ପରିବର୍ତ୍ତନକୁ ଅନଡୁ କରନ୍ତୁ"</string>
     <string name="clock_style_round_clock" msgid="1694787561051568664">"ଗୋଲେଇ ଘଣ୍ଟା"</string>
+    <string name="clock_style_sharp_clock" msgid="1534034367317255693">"ସାର୍ପ କ୍ଲକ"</string>
+    <string name="change_clock_style_content_description" msgid="5831805715265928702">"<xliff:g id="ID_1">%1$s</xliff:g>। ଘଣ୍ଟା ଷ୍ଟାଇଲ ପରିବର୍ତ୍ତନ କରିବାକୁ ଟାପ କରନ୍ତୁ।"</string>
     <string name="clock_style_update_toast" msgid="6933583129162805444">"ଷ୍ଟାଇଲକୁ <xliff:g id="ID_1">%1$s</xliff:g>ରେ ପରିବର୍ତ୍ତନ କରାଯାଇଛି। ଅନଡୁ କରିବା ପାଇଁ ପୁଣି ଟାପ କରନ୍ତୁ।"</string>
     <string name="clock_style_round" msgid="261319982647730366">"ରାଉଣ୍ଡ"</string>
     <string name="clock_style_sharp" msgid="453991773733285628">"ସାର୍ପ"</string>
@@ -60,8 +62,11 @@
     <string name="app_icons_theme_default" msgid="4773453045331265070">"ଡିଫଲ୍ଟ"</string>
     <string name="app_icons_theme_themed" msgid="6539464818104931856">"ଥିମ କରାଯାଇଛି"</string>
     <string name="app_icons_style_default" msgid="2568057806991656437">"ଡିଫଲ୍ଟ"</string>
-    <string name="app_icons_style_minimal" msgid="4905227469969513136">"ସର୍ବନିମ୍ନ"</string>
+    <string name="app_icons_style_minimal" msgid="4905227469969513136">"ମିନିମାଲ"</string>
     <string name="app_icons_shape" msgid="2539949450435849188">"ଆକାର"</string>
+    <string name="app_labels" msgid="4290052401987798752">"ଆପ ଲେବଲ"</string>
+    <string name="app_names" msgid="708691253698583169">"ନାମ"</string>
+    <string name="show_app_names" msgid="522703901790555973">"ଆପ ନାମଗୁଡ଼ିକ ଦେଖାନ୍ତୁ"</string>
     <string name="app_icons_style" msgid="993356162262531521">"ଷ୍ଟାଇଲ"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"ପ୍ରୟୋଗ କରନ୍ତୁ"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"ଏଡିଟ କରିବା ପାଇଁ ଟାପ କରନ୍ତୁ"</string>
@@ -97,7 +102,7 @@
     <string name="apply_theme_error_msg" msgid="791364062636538317">"ଶୈଳୀ ପ୍ରୟୋଗ କରିବାରେ କିଛି ସମସ୍ୟା ହୋଇଛି"</string>
     <string name="custom_theme_next" msgid="6235420097213197301">"ପରବର୍ତ୍ତୀ"</string>
     <string name="custom_theme_previous" msgid="4941132112640503022">"ପୂର୍ବବର୍ତ୍ତୀ"</string>
-    <string name="custom_theme" msgid="1618351922263478163">"କଷ୍ଟମ୍"</string>
+    <string name="custom_theme" msgid="1618351922263478163">"କଷ୍ଟମ"</string>
     <string name="custom_theme_title" msgid="2192300350332693631">"କଷ୍ଟମ୍ <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="custom_theme_fragment_title" msgid="6615547284702040280">"କଷ୍ଟମ୍‌ ଷ୍ଟାଇଲ୍"</string>
     <string name="custom_theme_delete" msgid="4744494663184126202">"ଡିଲିଟ୍‍ କରନ୍ତୁ"</string>
@@ -114,7 +119,7 @@
     <string name="use_style_instead_title" msgid="1578754995763917502">"ଏହା ପରିବର୍ତ୍ତେ <xliff:g id="ID_1">%1$s</xliff:g> ବ୍ୟବହାର କରିବେ?"</string>
     <string name="use_style_instead_body" msgid="3051937045807471496">"ଆପଣ ବଛିଥିବା ଉପାଦାନଗୁଡ଼ିକ <xliff:g id="ID_1">%1$s</xliff:g> ଶୈଳୀ ସହ ମେଳ ହେଉଛି। ଏହା ପରିବର୍ତ୍ତେ ଆପଣ <xliff:g id="ID_2">%1$s</xliff:g>କୁ ବ୍ୟବହାର କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?"</string>
     <string name="use_style_button" msgid="1754493078383627019">"<xliff:g id="ID_1">%1$s</xliff:g> ବ୍ୟବହାର କରନ୍ତୁ"</string>
-    <string name="no_thanks" msgid="7286616980115687627">"ନାହିଁ, ଥାଉ"</string>
+    <string name="no_thanks" msgid="7286616980115687627">"ନା, ଧନ୍ୟବାଦ"</string>
     <string name="clock_preview_content_description" msgid="5460561185905717460">"<xliff:g id="ID_1">%1$s</xliff:g> ଘଣ୍ଟାର ପୂର୍ବାବଲୋକନ"</string>
     <string name="something_went_wrong" msgid="529840112449799117">"ଓହୋଃ, କିଛି ଭୁଲ ହୋଇଗଲା।"</string>
     <string name="theme_preview_icons_section_title" msgid="7064768910744000643">"ରଙ୍ଗ / ଆଇକନଗୁଡ଼ିକ"</string>
@@ -139,6 +144,9 @@
     <string name="preset_color_subheader" msgid="8230588536141279371">"ଆଇକନ, ଘଣ୍ଟା ଓ ଆହୁରି ଅନେକ କିଛି ପାଇଁ ଯେ କୌଣସି ରଙ୍ଗ ବାଛ"</string>
     <string name="color_changed" msgid="7029571720331641235">"ରଙ୍ଗ ପରିବର୍ତ୍ତନ କରାଯାଇଛି"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"ଡାଇନାମିକ"</string>
+    <string name="freeform_color_title" msgid="7237399756373189892">"ଆପଣଙ୍କ ରଙ୍ଗ"</string>
+    <string name="wallpaper_color_title_2" msgid="5292059876778066808">"ଆପଣଙ୍କ ୱାଲପେପର ରଙ୍ଗ"</string>
+    <string name="cmf_color_title" msgid="3224736567184119951">"ହାର୍ଡୱେର ରଙ୍ଗ"</string>
     <string name="color_picker_title" msgid="6666830057938082864">"ସିଷ୍ଟମ ରଙ୍ଗ"</string>
     <string name="system_colors_title" msgid="8011422955674152731">"ରଙ୍ଗ"</string>
     <string name="screen_saver_title" msgid="4178511806237734356">"ସ୍କ୍ରିନ ସେଭର"</string>
@@ -149,7 +157,7 @@
     <string name="keyguard_affordance_enablement_dialog_action_template" msgid="8117011931337357438">"<xliff:g id="APPNAME">%1$s</xliff:g> ଖୋଲନ୍ତୁ"</string>
     <string name="keyguard_affordance_enablement_dialog_message" msgid="6136286758939253570">"ଏକ ସର୍ଟକଟ ଭାବେ <xliff:g id="APPNAME">%1$s</xliff:g> ଆପ ଯୋଗ କରିବାକୁ, ଏହା ସୁନିଶ୍ଚିତ କରନ୍ତୁ"</string>
     <string name="keyguard_affordance_enablement_dialog_dismiss_button" msgid="629754625264422508">"ହୋଇଗଲା"</string>
-    <string name="keyguard_quick_affordance_title" msgid="4242813186995735584">"ସର୍ଟକଟଗୁଡ଼ିକ"</string>
+    <string name="keyguard_quick_affordance_title" msgid="4242813186995735584">"ସର୍ଟକଟ"</string>
     <string name="keyguard_quick_affordance_section_title" msgid="2806304242671717309">"ସର୍ଟକଟଗୁଡ଼ିକ"</string>
     <string name="color_contrast_section_title" msgid="7194809124718896091">"ରଙ୍ଗ କଣ୍ଟ୍ରାଷ୍ଟ"</string>
     <string name="color_contrast_default_title" msgid="7954235103549276978">"ଡିଫଲ୍ଟ"</string>
@@ -167,11 +175,19 @@
     <string name="content_description_neutral_color_option" msgid="3385443834001275301">"ପ୍ରାଥମିକ ନ୍ୟୁଟ୍ରାଲ ଥିମ"</string>
     <string name="content_description_vibrant_color_option" msgid="2230249305878632821">"ପ୍ରାଥମିକ ଭାଇବ୍ରାଣ୍ଟ ଥିମ"</string>
     <string name="content_description_expressive_color_option" msgid="6081295313456341282">"ପ୍ରାଥମିକ ଏକ୍ସପ୍ରେସିଭ ଥିମ"</string>
+    <string name="color_variant_option_label_neutral" msgid="4412085293640372330">"ନ୍ୟୁଟ୍ରାଲ"</string>
+    <string name="color_variant_option_label_soft" msgid="5073290767548293847">"ସଫ୍ଟ"</string>
+    <string name="color_variant_option_label_bright" msgid="3764688816491282376">"ଉଜ୍ଜ୍ୱଳ"</string>
+    <string name="color_variant_option_label_bold" msgid="7239402636388565778">"ବୋଲ୍ଡ କରନ୍ତୁ"</string>
+    <string name="color_variant_editor_apply" msgid="6735218825751029812">"ଥିମ ଷ୍ଟାଇଲରେ କରାଯାଇଥିବା ପରିବର୍ତ୍ତନକୁ ଲାଗୁ କରନ୍ତୁ"</string>
+    <string name="color_variant_editor_revert" msgid="1786509144393262567">"ଥିମ ଷ୍ଟାଇଲରେ କରାଯାଇଥିବା ପରିବର୍ତ୍ତନକୁ ଅନଡୁ କରନ୍ତୁ"</string>
+    <string name="color_freeform_editor_description" msgid="1019960558215074662">"ଗୋଟିଏ ରଙ୍ଗ ଚୟନ କରନ୍ତୁ"</string>
     <string name="content_description_default_color_option" msgid="7011899327541080695">"ଡିଫଲ୍ଟ ରଙ୍ଗର ବିକଳ୍ପ"</string>
     <string name="content_description_color_option" msgid="4169813692012119578">"ରଙ୍ଗର ବିକଳ୍ପ <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="scroll_forward_and_select" msgid="6156132388656395769">"ଏକ ଭିନ୍ନ କ୍ଲକ ଫେସ ବାଛିବାକୁ ବାମକୁ ସ୍ୱାଇପ କରନ୍ତୁ"</string>
     <string name="scroll_backward_and_select" msgid="5472202348434803757">"ଏକ ଭିନ୍ନ କ୍ଲକ ଫେସ ବାଛିବାକୁ ଡାହାଣକୁ ସ୍ୱାଇପ କରନ୍ତୁ"</string>
     <string name="custom_clocks_label" msgid="8168419717593569347">"କ୍ଲକ ଫେସ କଷ୍ଟମ କରନ୍ତୁ"</string>
     <string name="clock_face_width" msgid="5818129719338363570">"କ୍ଲକ ଫେସ ଚଉଡ଼ା"</string>
-    <string name="slider_state_description_template" msgid="1028160527998877233">"%1$d, ରେଞ୍ଜ %2$dରୁ %3$d"</string>
+    <string name="enabled_slider_state_description_template" msgid="110185389957126478">"%1$d, %2$dରୁ %3$d ରେଞ୍ଜ"</string>
+    <string name="disabled_slider_state_description_template" msgid="660230299054431711">"ଅକ୍ଷମ କରାଯାଇଛି, %1$d, %2$dରୁ %3$d ରେଞ୍ଜ"</string>
 </resources>

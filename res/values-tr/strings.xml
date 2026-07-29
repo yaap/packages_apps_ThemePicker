@@ -49,6 +49,8 @@
     <string name="clock_font_editor_apply" msgid="5965611025879105293">"Saat yazı tipi değişikliklerini uygula"</string>
     <string name="clock_font_editor_revert" msgid="5307491447405753061">"Saat yazı tipi değişikliklerini geri al"</string>
     <string name="clock_style_round_clock" msgid="1694787561051568664">"Yuvarlak kenarlı saat"</string>
+    <string name="clock_style_sharp_clock" msgid="1534034367317255693">"Keskin hatlı saat"</string>
+    <string name="change_clock_style_content_description" msgid="5831805715265928702">"<xliff:g id="ID_1">%1$s</xliff:g>. Saat stilini değiştirmek için dokunun."</string>
     <string name="clock_style_update_toast" msgid="6933583129162805444">"Stil <xliff:g id="ID_1">%1$s</xliff:g> olarak değiştirildi. Geri almak için tekrar dokunun."</string>
     <string name="clock_style_round" msgid="261319982647730366">"yuvarlak"</string>
     <string name="clock_style_sharp" msgid="453991773733285628">"keskin"</string>
@@ -62,6 +64,9 @@
     <string name="app_icons_style_default" msgid="2568057806991656437">"Varsayılan"</string>
     <string name="app_icons_style_minimal" msgid="4905227469969513136">"Minimal"</string>
     <string name="app_icons_shape" msgid="2539949450435849188">"Şekil"</string>
+    <string name="app_labels" msgid="4290052401987798752">"Uygulama etiketleri"</string>
+    <string name="app_names" msgid="708691253698583169">"Adlar"</string>
+    <string name="show_app_names" msgid="522703901790555973">"Uygulama adlarını göster"</string>
     <string name="app_icons_style" msgid="993356162262531521">"Stil"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Uygula"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Düzenlemek için dokunun"</string>
@@ -139,6 +144,9 @@
     <string name="preset_color_subheader" msgid="8230588536141279371">"Simgeler ve saat gibi öğeler için istediğiniz rengi seçin"</string>
     <string name="color_changed" msgid="7029571720331641235">"Renk değişti"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"Dinamik"</string>
+    <string name="freeform_color_title" msgid="7237399756373189892">"Renkleriniz"</string>
+    <string name="wallpaper_color_title_2" msgid="5292059876778066808">"Duvar kağıdınızın renkleri"</string>
+    <string name="cmf_color_title" msgid="3224736567184119951">"Donanım renkleri"</string>
     <string name="color_picker_title" msgid="6666830057938082864">"Sistem renkleri"</string>
     <string name="system_colors_title" msgid="8011422955674152731">"Renkler"</string>
     <string name="screen_saver_title" msgid="4178511806237734356">"Ekran koruyucu"</string>
@@ -167,11 +175,19 @@
     <string name="content_description_neutral_color_option" msgid="3385443834001275301">"Birincil nötr tema"</string>
     <string name="content_description_vibrant_color_option" msgid="2230249305878632821">"Birincil canlı tema"</string>
     <string name="content_description_expressive_color_option" msgid="6081295313456341282">"Birincil ifade teması"</string>
+    <string name="color_variant_option_label_neutral" msgid="4412085293640372330">"Nötr"</string>
+    <string name="color_variant_option_label_soft" msgid="5073290767548293847">"Yumuşak"</string>
+    <string name="color_variant_option_label_bright" msgid="3764688816491282376">"Parlak"</string>
+    <string name="color_variant_option_label_bold" msgid="7239402636388565778">"Kalın"</string>
+    <string name="color_variant_editor_apply" msgid="6735218825751029812">"Tema stili değişikliğini uygula"</string>
+    <string name="color_variant_editor_revert" msgid="1786509144393262567">"Tema stili değişikliğini geri al"</string>
+    <string name="color_freeform_editor_description" msgid="1019960558215074662">"Renk seçin"</string>
     <string name="content_description_default_color_option" msgid="7011899327541080695">"Varsayılan renk seçeneği"</string>
     <string name="content_description_color_option" msgid="4169813692012119578">"<xliff:g id="ID_1">%1$d</xliff:g> renk seçeneği"</string>
     <string name="scroll_forward_and_select" msgid="6156132388656395769">"Farklı bir kadran seçmek için sola kaydırın"</string>
     <string name="scroll_backward_and_select" msgid="5472202348434803757">"Farklı bir kadran seçmek için sağa kaydırın"</string>
     <string name="custom_clocks_label" msgid="8168419717593569347">"Özel Saatler"</string>
     <string name="clock_face_width" msgid="5818129719338363570">"Kadran genişliği"</string>
-    <string name="slider_state_description_template" msgid="1028160527998877233">"%1$d, %2$d ile %3$d arasında"</string>
+    <string name="enabled_slider_state_description_template" msgid="110185389957126478">"%1$d, aralık %2$d - %3$d arası"</string>
+    <string name="disabled_slider_state_description_template" msgid="660230299054431711">"devre dışı, %1$d, aralık %2$d - %3$d arası"</string>
 </resources>

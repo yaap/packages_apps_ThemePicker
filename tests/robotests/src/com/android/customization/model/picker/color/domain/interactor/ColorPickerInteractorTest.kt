@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -21,97 +21,59 @@ import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.android.customization.picker.color.data.repository.FakeColorPickerRepository
 import com.android.customization.picker.color.domain.interactor.ColorPickerInteractor
-import com.android.customization.picker.color.domain.interactor.ColorPickerSnapshotRestorer
 import com.android.customization.picker.color.shared.model.ColorType
-import com.android.wallpaper.testing.FakeSnapshotStore
+import com.android.wallpaper.config.BaseFlags
 import com.android.wallpaper.testing.collectLastValue
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.runBlocking
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 
-@OptIn(ExperimentalCoroutinesApi::class)
+@HiltAndroidTest
 @SmallTest
 @RunWith(RobolectricTestRunner::class)
 class ColorPickerInteractorTest {
+    @get:Rule var hiltRule = HiltAndroidRule(this)
+
     private lateinit var underTest: ColorPickerInteractor
     private lateinit var repository: FakeColorPickerRepository
-    private lateinit var store: FakeSnapshotStore
 
     private lateinit var context: Context
 
     @Before
     fun setUp() {
+        hiltRule.inject()
+
         context = InstrumentationRegistry.getInstrumentation().targetContext
-        repository = FakeColorPickerRepository(context = context)
-        store = FakeSnapshotStore()
-        underTest =
-            ColorPickerInteractor(
-                repository = repository,
-                snapshotRestorer =
-                    ColorPickerSnapshotRestorer(repository = repository).apply {
-                        runBlocking { setUpSnapshotRestorer(store = store) }
-                    },
-            )
+        repository = FakeColorPickerRepository(baseFlags = BaseFlags.get(context))
+        underTest = ColorPickerInteractor(repository = repository)
         repository.setOptions(4, 4, ColorType.WALLPAPER_COLOR, 0)
     }
 
     @Test
-    fun select() = runTest {
+    fun apply() = runTest {
         val colorOptions = collectLastValue(underTest.colorOptions)
+        val selectedColorOption = collectLastValue(underTest.selectedColorOption)
 
-        val wallpaperColorOptionModelBefore = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(2)
-        assertThat(wallpaperColorOptionModelBefore?.isSelected).isFalse()
+        val wallpaperColors = colorOptions()?.get(0)
+        assertThat(wallpaperColors?.first).isEqualTo(ColorType.WALLPAPER_COLOR)
+        val wallpaperColorOption = wallpaperColors?.second?.get(2)
+        assertThat(selectedColorOption()).isNotEqualTo(wallpaperColorOption)
 
-        wallpaperColorOptionModelBefore?.let { underTest.select(colorOptionModel = it) }
-        val wallpaperColorOptionModelAfter = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(2)
-        assertThat(wallpaperColorOptionModelAfter?.isSelected).isTrue()
+        wallpaperColorOption?.let { underTest.apply(colorOption = it) }
+        assertThat(selectedColorOption()).isEqualTo(wallpaperColorOption)
 
-        val presetColorOptionModelBefore = colorOptions()?.get(ColorType.PRESET_COLOR)?.get(1)
-        assertThat(presetColorOptionModelBefore?.isSelected).isFalse()
+        val presetColors = colorOptions()?.get(1)
+        assertThat(presetColors?.first).isEqualTo(ColorType.PRESET_COLOR)
+        val presetColorOption = presetColors?.second?.get(1)
+        assertThat(selectedColorOption()).isNotEqualTo(presetColorOption)
 
-        presetColorOptionModelBefore?.let { underTest.select(colorOptionModel = it) }
-        val presetColorOptionModelAfter = colorOptions()?.get(ColorType.PRESET_COLOR)?.get(1)
-        assertThat(presetColorOptionModelAfter?.isSelected).isTrue()
-    }
-
-    @Test
-    fun snapshotRestorer_updatesSnapshot() = runTest {
-        val colorOptions = collectLastValue(underTest.colorOptions)
-        val wallpaperColorOptionModel0 = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(0)
-        val wallpaperColorOptionModel1 = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(1)
-        assertThat(wallpaperColorOptionModel0?.isSelected).isTrue()
-        assertThat(wallpaperColorOptionModel1?.isSelected).isFalse()
-
-        val storedSnapshot = store.retrieve()
-        wallpaperColorOptionModel1?.let { underTest.select(it) }
-        val wallpaperColorOptionModel0After = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(0)
-        val wallpaperColorOptionModel1After = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(1)
-        assertThat(wallpaperColorOptionModel0After?.isSelected).isFalse()
-        assertThat(wallpaperColorOptionModel1After?.isSelected).isTrue()
-
-        assertThat(store.retrieve()).isNotEqualTo(storedSnapshot)
-    }
-
-    @Test
-    fun snapshotRestorer_doesNotUpdateSnapshotOnExternalUpdates() = runTest {
-        val colorOptions = collectLastValue(underTest.colorOptions)
-        val wallpaperColorOptionModel0 = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(0)
-        val wallpaperColorOptionModel1 = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(1)
-        assertThat(wallpaperColorOptionModel0?.isSelected).isTrue()
-        assertThat(wallpaperColorOptionModel1?.isSelected).isFalse()
-
-        val storedSnapshot = store.retrieve()
-        repository.setOptions(4, 4, ColorType.WALLPAPER_COLOR, 1)
-        val wallpaperColorOptionModel0After = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(0)
-        val wallpaperColorOptionModel1After = colorOptions()?.get(ColorType.WALLPAPER_COLOR)?.get(1)
-        assertThat(wallpaperColorOptionModel0After?.isSelected).isFalse()
-        assertThat(wallpaperColorOptionModel1After?.isSelected).isTrue()
-
-        assertThat(store.retrieve()).isEqualTo(storedSnapshot)
+        presetColorOption?.let { underTest.apply(colorOption = it) }
+        assertThat(selectedColorOption()).isEqualTo(presetColorOption)
     }
 }

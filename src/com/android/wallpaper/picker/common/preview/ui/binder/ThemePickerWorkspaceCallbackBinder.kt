@@ -16,6 +16,7 @@
 
 package com.android.wallpaper.picker.common.preview.ui.binder
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Message
 import android.os.RemoteException
@@ -29,6 +30,7 @@ import com.android.customization.model.grid.DefaultShapeGridManager.Companion.CO
 import com.android.customization.model.grid.DefaultShapeGridManager.Companion.COL_SHAPE_KEY
 import com.android.customization.picker.clock.ui.view.ClockViewFactory
 import com.android.customization.picker.color.data.util.MaterialColorsGenerator
+import com.android.customization.picker.icon.shared.model.ThemePickerIconStyle
 import com.android.systemui.shared.keyguard.shared.model.KeyguardQuickAffordanceSlots.SLOT_ID_BOTTOM_END
 import com.android.systemui.shared.keyguard.shared.model.KeyguardQuickAffordanceSlots.SLOT_ID_BOTTOM_START
 import com.android.systemui.shared.quickaffordance.shared.model.KeyguardPreviewConstants.KEY_HIDE_SMART_SPACE
@@ -47,23 +49,29 @@ import com.android.wallpaper.model.Screen
 import com.android.wallpaper.picker.common.preview.ui.binder.WorkspaceCallbackBinder.Companion.sendMessage
 import com.android.wallpaper.picker.customization.ui.viewmodel.ColorUpdateViewModel
 import com.android.wallpaper.picker.customization.ui.viewmodel.CustomizationOptionsViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.launch
 
 @Singleton
 class ThemePickerWorkspaceCallbackBinder
 @Inject
 constructor(
+    @ApplicationContext private val context: Context,
     private val defaultWorkspaceCallbackBinder: DefaultWorkspaceCallbackBinder,
     private val materialColorsGenerator: MaterialColorsGenerator,
+    private val baseFlags: BaseFlags,
 ) : WorkspaceCallbackBinder {
 
     private var lockScreenJob: Job? = null
     private var homeScreenJob: Job? = null
 
+    @OptIn(FlowPreview::class)
     override fun bind(
         workspaceCallback: Message,
         viewModel: CustomizationOptionsViewModel,
@@ -193,46 +201,129 @@ constructor(
                                 }
                             }
 
-                            launch {
-                                combine(
-                                        viewModel.colorPickerViewModel2.previewingColorOption,
-                                        viewModel.darkModeViewModel.overridingIsDarkMode,
-                                        ::Pair,
-                                    )
-                                    .collect { (colorOption, darkMode) ->
-                                        val bundle =
-                                            Bundle().apply {
-                                                if (colorOption != null) {
-                                                    val (ids, colors) =
-                                                        materialColorsGenerator.generate(
-                                                            colorOption.seedColor,
-                                                            colorOption.style,
-                                                            darkMode,
-                                                        )
-                                                    putIntArray(KEY_COLOR_RESOURCE_IDS, ids)
-                                                    putIntArray(KEY_COLOR_VALUES, colors)
-                                                }
-
-                                                if (darkMode != null) {
-                                                    putBoolean(KEY_DARK_MODE, darkMode)
-                                                }
-                                            }
-                                        safeSendMessage(
-                                            workspaceCallback,
-                                            MESSAGE_ID_UPDATE_COLOR,
-                                            bundle,
+                            if (BaseFlags.get(context).isColorPickerUpdateEnabled()) {
+                                launch {
+                                    combine(
+                                            viewModel.colorPickerViewModel2.selectedColorOption,
+                                            // Sample to reduce workspace updates during freeform
+                                            // slider updates
+                                            viewModel.colorPickerViewModel2
+                                                .tempOverridingColorOption
+                                                .debounce(200),
+                                            viewModel.colorPickerViewModel2.overridingStyle,
+                                            viewModel.darkModeViewModel.overridingIsDarkMode,
+                                            ::Quadruple,
                                         )
-                                    }
+                                        .collect {
+                                            (
+                                                selectedColor,
+                                                overridingColor,
+                                                overridingStyle,
+                                                overridingDarkMode) ->
+                                            val bundle =
+                                                Bundle().apply {
+                                                    val colorNeedsUpdate = overridingColor != null
+                                                    val styleNeedsUpdate = overridingStyle != null
+                                                    val colorOption =
+                                                        overridingColor ?: selectedColor
+                                                    if (
+                                                        (colorNeedsUpdate || styleNeedsUpdate) &&
+                                                            colorOption != null
+                                                    ) {
+                                                        if (baseFlags.isThemeServiceEnabled()) {
+                                                            val style =
+                                                                overridingStyle ?: colorOption.style
+                                                            // TODO (b/488057749): enable multi-seed
+                                                            putIntArray(
+                                                                KEY_SEED_COLOR_LIST,
+                                                                intArrayOf(colorOption.seedColor),
+                                                            )
+                                                            putInt(KEY_THEME_STYLE, style)
+                                                        } else {
+                                                            val style =
+                                                                overridingStyle ?: colorOption.style
+                                                            val (ids, colors) =
+                                                                materialColorsGenerator.generate(
+                                                                    colorOption.seedColor,
+                                                                    style,
+                                                                    overridingDarkMode,
+                                                                )
+                                                            putIntArray(KEY_COLOR_RESOURCE_IDS, ids)
+                                                            putIntArray(KEY_COLOR_VALUES, colors)
+                                                        }
+                                                    }
+
+                                                    if (overridingDarkMode != null) {
+                                                        putBoolean(
+                                                            KEY_DARK_MODE,
+                                                            overridingDarkMode,
+                                                        )
+                                                    }
+                                                }
+                                            safeSendMessage(
+                                                workspaceCallback,
+                                                MESSAGE_ID_UPDATE_COLOR,
+                                                bundle,
+                                            )
+                                        }
+                                }
+                            } else {
+                                launch {
+                                    combine(
+                                            viewModel.colorPickerViewModel2.overridingColorOption,
+                                            viewModel.darkModeViewModel.overridingIsDarkMode,
+                                            ::Pair,
+                                        )
+                                        .collect { (colorOption, darkMode) ->
+                                            val bundle =
+                                                Bundle().apply {
+                                                    if (colorOption != null) {
+                                                        if (baseFlags.isThemeServiceEnabled()) {
+                                                            // TODO (b/488057749): enable multi-seed
+                                                            putIntArray(
+                                                                KEY_SEED_COLOR_LIST,
+                                                                intArrayOf(colorOption.seedColor),
+                                                            )
+                                                            putInt(
+                                                                KEY_THEME_STYLE,
+                                                                colorOption.style,
+                                                            )
+                                                        } else {
+                                                            val (ids, colors) =
+                                                                materialColorsGenerator.generate(
+                                                                    colorOption.seedColor,
+                                                                    colorOption.style,
+                                                                    darkMode,
+                                                                )
+                                                            putIntArray(KEY_COLOR_RESOURCE_IDS, ids)
+                                                            putIntArray(KEY_COLOR_VALUES, colors)
+                                                        }
+                                                    }
+
+                                                    if (darkMode != null) {
+                                                        putBoolean(KEY_DARK_MODE, darkMode)
+                                                    }
+                                                }
+                                            safeSendMessage(
+                                                workspaceCallback,
+                                                MESSAGE_ID_UPDATE_COLOR,
+                                                bundle,
+                                            )
+                                        }
+                                }
                             }
 
-                            if (BaseFlags.get().isExtendibleThemeManager()) {
+                            if (BaseFlags.get(context).isExtendibleThemeManager()) {
                                 launch {
                                     viewModel.appIconPickerViewModel.previewingIconStyle.collect {
                                         safeSendMessage(
                                             workspaceCallback,
                                             MESSAGE_ID_UPDATE_ICON_THEMED,
                                             Bundle().apply {
-                                                putBoolean(KEY_BOOLEAN_VALUE, it.getIsThemedIcon())
+                                                putBoolean(
+                                                    KEY_BOOLEAN_VALUE,
+                                                    it == ThemePickerIconStyle.MONOCHROME,
+                                                )
                                             },
                                         )
                                     }
@@ -249,6 +340,23 @@ constructor(
                                         }
                                 }
                             }
+
+                            launch {
+                                viewModel.appIconPickerViewModel.previewingShouldShowAppLabels
+                                    .collect {
+                                        safeSendMessage(
+                                            workspaceCallback,
+                                            MESSAGE_ID_UPDATE_COMMAND,
+                                            Bundle().apply {
+                                                putString(
+                                                    KEY_UPDATE_METHOD,
+                                                    METHOD_SET_WORKSPACE_ITEMS_LABEL_HIDDEN,
+                                                )
+                                                putBoolean(KEY_BOOLEAN_VALUE, !it)
+                                            },
+                                        )
+                                    }
+                            }
                         }
                     }
             }
@@ -261,6 +369,8 @@ constructor(
         homeScreenJob?.cancel()
         homeScreenJob = null
     }
+
+    data class Quadruple<A, B, C, D>(val first: A, val second: B, val third: C, val fourth: D)
 
     companion object {
         const val TAG = "ThemePickerWorkspaceCallbackBinder"
@@ -277,9 +387,13 @@ constructor(
         const val KEY_COLOR_VALUES: String = "color_values"
         const val KEY_DARK_MODE: String = "use_dark_mode"
         const val KEY_BOOLEAN_VALUE: String = "boolean_value"
+        const val KEY_SEED_COLOR_LIST: String = "seed_color_list"
+        const val KEY_THEME_STYLE: String = "theme_style"
 
         const val MESSAGE_ID_UPDATE_COMMAND = 512
         const val KEY_UPDATE_METHOD = "update_method"
+        private const val METHOD_SET_WORKSPACE_ITEMS_LABEL_HIDDEN =
+            "/set_workspace_items_label_hidden"
 
         fun safeSendMessage(workspaceCallback: Message, what: Int, data: Bundle) {
             try {

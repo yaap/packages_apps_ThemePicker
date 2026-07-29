@@ -49,6 +49,8 @@
     <string name="clock_font_editor_apply" msgid="5965611025879105293">"घडीको फन्टमा गरिएका परिवर्तनहरू लागू गर्नुहोस्"</string>
     <string name="clock_font_editor_revert" msgid="5307491447405753061">"घडीको फन्टमा गरिएका परिवर्तनहरू अन्डू गर्नुहोस्"</string>
     <string name="clock_style_round_clock" msgid="1694787561051568664">"गोलाकार घडी"</string>
+    <string name="clock_style_sharp_clock" msgid="1534034367317255693">"स्पष्ट घडी"</string>
+    <string name="change_clock_style_content_description" msgid="5831805715265928702">"<xliff:g id="ID_1">%1$s</xliff:g>। घडीको शैली परिवर्तन गर्न ट्याप गर्नुहोस्।"</string>
     <string name="clock_style_update_toast" msgid="6933583129162805444">"शैली परिवर्तन गरी <xliff:g id="ID_1">%1$s</xliff:g> बनाइएको छ। अन्डू गर्न फेरि ट्याप गर्नुहोस्।"</string>
     <string name="clock_style_round" msgid="261319982647730366">"राउन्ड"</string>
     <string name="clock_style_sharp" msgid="453991773733285628">"सार्प"</string>
@@ -62,6 +64,9 @@
     <string name="app_icons_style_default" msgid="2568057806991656437">"डिफल्ट"</string>
     <string name="app_icons_style_minimal" msgid="4905227469969513136">"मिनिमल"</string>
     <string name="app_icons_shape" msgid="2539949450435849188">"आकार"</string>
+    <string name="app_labels" msgid="4290052401987798752">"एपका लेबलहरू"</string>
+    <string name="app_names" msgid="708691253698583169">"नामहरू"</string>
+    <string name="show_app_names" msgid="522703901790555973">"एपका नामहरू देखाउनुहोस्"</string>
     <string name="app_icons_style" msgid="993356162262531521">"शैली"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"लागू गर्नुहोस्"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"सम्पादन गर्न ट्याप गर्नुहोस्"</string>
@@ -139,6 +144,9 @@
     <string name="preset_color_subheader" msgid="8230588536141279371">"आइकन, घडी र अन्य कुराका लागि कुनै पनि रङ छनौट गर्नुहोस्"</string>
     <string name="color_changed" msgid="7029571720331641235">"रङ बदलियो"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"गतिशील"</string>
+    <string name="freeform_color_title" msgid="7237399756373189892">"तपाईंका रङहरू"</string>
+    <string name="wallpaper_color_title_2" msgid="5292059876778066808">"तपाईंको वालपेपरका रङहरू"</string>
+    <string name="cmf_color_title" msgid="3224736567184119951">"हार्डवेयरका रङहरू"</string>
     <string name="color_picker_title" msgid="6666830057938082864">"सिस्टमका रङहरू"</string>
     <string name="system_colors_title" msgid="8011422955674152731">"रङहरू"</string>
     <string name="screen_saver_title" msgid="4178511806237734356">"स्क्रिन सेभर"</string>
@@ -148,7 +156,7 @@
     <string name="keyguard_affordance_enablement_dialog_headline" msgid="365379085932610314">"सर्टकट सिर्जना गर्न सकिएन"</string>
     <string name="keyguard_affordance_enablement_dialog_action_template" msgid="8117011931337357438">"<xliff:g id="APPNAME">%1$s</xliff:g> खोल्नुहोस्"</string>
     <string name="keyguard_affordance_enablement_dialog_message" msgid="6136286758939253570">"<xliff:g id="APPNAME">%1$s</xliff:g> एपलाई सर्टकटका रूपमा हाल्न, निम्न कुरा सुनिश्चित गर्नुहोस्:"</string>
-    <string name="keyguard_affordance_enablement_dialog_dismiss_button" msgid="629754625264422508">"पूरा भयो"</string>
+    <string name="keyguard_affordance_enablement_dialog_dismiss_button" msgid="629754625264422508">"सम्पन्न भयो"</string>
     <string name="keyguard_quick_affordance_title" msgid="4242813186995735584">"सर्टकटहरू"</string>
     <string name="keyguard_quick_affordance_section_title" msgid="2806304242671717309">"सर्टकटहरू"</string>
     <string name="color_contrast_section_title" msgid="7194809124718896091">"कलर कन्ट्रास्ट"</string>
@@ -167,11 +175,19 @@
     <string name="content_description_neutral_color_option" msgid="3385443834001275301">"प्राइमरी न्युट्रल थिम"</string>
     <string name="content_description_vibrant_color_option" msgid="2230249305878632821">"प्राइमरी भाइब्रेन्ट थिम"</string>
     <string name="content_description_expressive_color_option" msgid="6081295313456341282">"प्राइमरी एक्सप्रेसिभ थिम"</string>
+    <string name="color_variant_option_label_neutral" msgid="4412085293640372330">"तटस्थ"</string>
+    <string name="color_variant_option_label_soft" msgid="5073290767548293847">"कोमल"</string>
+    <string name="color_variant_option_label_bright" msgid="3764688816491282376">"उज्यालो"</string>
+    <string name="color_variant_option_label_bold" msgid="7239402636388565778">"बोल्ड"</string>
+    <string name="color_variant_editor_apply" msgid="6735218825751029812">"थिमको शैलीमा गरिएको परिवर्तन लागू गर्नुहोस्"</string>
+    <string name="color_variant_editor_revert" msgid="1786509144393262567">"थिमको शैलीमा गरिएको परिवर्तन अन्डू गर्नुहोस्"</string>
+    <string name="color_freeform_editor_description" msgid="1019960558215074662">"रङ चयन गर्नुहोस्"</string>
     <string name="content_description_default_color_option" msgid="7011899327541080695">"रङसम्बन्धी डिफल्ट विकल्प"</string>
     <string name="content_description_color_option" msgid="4169813692012119578">"रङसम्बन्धी विकल्प <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="scroll_forward_and_select" msgid="6156132388656395769">"घडीको स्क्रिनको अर्कै डिजाइन छनौट गर्न बायाँतिर स्वाइप गर्नुहोस्"</string>
     <string name="scroll_backward_and_select" msgid="5472202348434803757">"घडीको स्क्रिनको अर्कै डिजाइन छनौट गर्न दायाँतिर स्वाइप गर्नुहोस्"</string>
     <string name="custom_clocks_label" msgid="8168419717593569347">"घडीको स्क्रिनका कस्टम डिजाइनहरू"</string>
     <string name="clock_face_width" msgid="5818129719338363570">"वाचफेसको चौडाइ"</string>
-    <string name="slider_state_description_template" msgid="1028160527998877233">"%1$d, %2$d देखि %3$d सम्मको दायरा"</string>
+    <string name="enabled_slider_state_description_template" msgid="110185389957126478">"%1$d, %2$d देखि %3$d सम्मको दायरा"</string>
+    <string name="disabled_slider_state_description_template" msgid="660230299054431711">"अफ गरिएको छ, %1$d, %2$d देखि %3$d सम्मको दायरा"</string>
 </resources>

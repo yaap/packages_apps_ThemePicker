@@ -16,9 +16,7 @@
 package com.android.customization.model.font;
 
 import android.graphics.Typeface;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.android.customization.model.CustomizationManager;
@@ -69,20 +67,6 @@ public class FontOption implements CustomizationOption<FontOption> {
 
     public String getPackageName() {
         return mOverlayPackage;
-    }
-
-    public void bindPreview(ViewGroup container) {
-        ViewGroup cardBody = container.findViewById(R.id.theme_preview_card_body_container);
-        if (cardBody.getChildCount() == 0) {
-            LayoutInflater.from(container.getContext()).inflate(
-                    R.layout.preview_card_font_content, cardBody, true);
-        }
-        TextView title = container.findViewById(R.id.font_card_title);
-        title.setTypeface(mHeadlineFont);
-        TextView bodyText = container.findViewById(R.id.font_card_body);
-        bodyText.setTypeface(mBodyFont);
-        container.findViewById(R.id.font_card_divider).setBackgroundColor(
-                title.getCurrentTextColor());
     }
 
     public Typeface getHeadlineFont() {

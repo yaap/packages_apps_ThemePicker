@@ -49,6 +49,8 @@
     <string name="clock_font_editor_apply" msgid="5965611025879105293">"Aplica cambios a la fuente del reloj"</string>
     <string name="clock_font_editor_revert" msgid="5307491447405753061">"Deshace cambios a la fuente del reloj"</string>
     <string name="clock_style_round_clock" msgid="1694787561051568664">"Reloj redondo"</string>
+    <string name="clock_style_sharp_clock" msgid="1534034367317255693">"Reloj angular"</string>
+    <string name="change_clock_style_content_description" msgid="5831805715265928702">"<xliff:g id="ID_1">%1$s</xliff:g>. Presiona para cambiar el estilo del reloj."</string>
     <string name="clock_style_update_toast" msgid="6933583129162805444">"El estilo cambió a <xliff:g id="ID_1">%1$s</xliff:g>. Presiona nuevamente para deshacer."</string>
     <string name="clock_style_round" msgid="261319982647730366">"redondo"</string>
     <string name="clock_style_sharp" msgid="453991773733285628">"elegante"</string>
@@ -62,6 +64,9 @@
     <string name="app_icons_style_default" msgid="2568057806991656437">"Predeterminado"</string>
     <string name="app_icons_style_minimal" msgid="4905227469969513136">"Mínimo"</string>
     <string name="app_icons_shape" msgid="2539949450435849188">"Forma"</string>
+    <string name="app_labels" msgid="4290052401987798752">"Etiquetas de la app"</string>
+    <string name="app_names" msgid="708691253698583169">"Nombres"</string>
+    <string name="show_app_names" msgid="522703901790555973">"Mostrar nombres de apps"</string>
     <string name="app_icons_style" msgid="993356162262531521">"Estilo"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"Aplicar"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"Presiona para editar"</string>
@@ -136,9 +141,12 @@
     <string name="wallpaper_color_title" msgid="5687965239180986458">"Color del fondo de pantalla"</string>
     <string name="preset_color_tab" msgid="3133391839341329314">"Colores básicos"</string>
     <string name="preset_color_tab_2" msgid="1444107326712562538">"Otros colores"</string>
-    <string name="preset_color_subheader" msgid="8230588536141279371">"Elige un color para tus íconos, tu reloj y mucho más"</string>
+    <string name="preset_color_subheader" msgid="8230588536141279371">"Elige un color para tus íconos, tu reloj y más"</string>
     <string name="color_changed" msgid="7029571720331641235">"Se cambió el color"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"Dinámico"</string>
+    <string name="freeform_color_title" msgid="7237399756373189892">"Tus colores"</string>
+    <string name="wallpaper_color_title_2" msgid="5292059876778066808">"Colores de tu fondo de pantalla"</string>
+    <string name="cmf_color_title" msgid="3224736567184119951">"Colores del hardware"</string>
     <string name="color_picker_title" msgid="6666830057938082864">"Colores del sistema"</string>
     <string name="system_colors_title" msgid="8011422955674152731">"Colores"</string>
     <string name="screen_saver_title" msgid="4178511806237734356">"Protector de pantalla"</string>
@@ -167,11 +175,19 @@
     <string name="content_description_neutral_color_option" msgid="3385443834001275301">"Tema neutro principal"</string>
     <string name="content_description_vibrant_color_option" msgid="2230249305878632821">"Tema intenso principal"</string>
     <string name="content_description_expressive_color_option" msgid="6081295313456341282">"Tema expresivo principal"</string>
+    <string name="color_variant_option_label_neutral" msgid="4412085293640372330">"Neutral"</string>
+    <string name="color_variant_option_label_soft" msgid="5073290767548293847">"Tenue"</string>
+    <string name="color_variant_option_label_bright" msgid="3764688816491282376">"Brillante"</string>
+    <string name="color_variant_option_label_bold" msgid="7239402636388565778">"Negrita"</string>
+    <string name="color_variant_editor_apply" msgid="6735218825751029812">"Aplicar cambio de estilo del tema"</string>
+    <string name="color_variant_editor_revert" msgid="1786509144393262567">"Deshacer cambio de estilo del tema"</string>
+    <string name="color_freeform_editor_description" msgid="1019960558215074662">"Selecciona un color"</string>
     <string name="content_description_default_color_option" msgid="7011899327541080695">"Opción de color predeterminada"</string>
     <string name="content_description_color_option" msgid="4169813692012119578">"Opción en color <xliff:g id="ID_1">%1$d</xliff:g>"</string>
     <string name="scroll_forward_and_select" msgid="6156132388656395769">"Desliza el dedo hacia la izquierda para elegir otra cara de reloj"</string>
     <string name="scroll_backward_and_select" msgid="5472202348434803757">"Desliza el dedo hacia la derecha para elegir otra cara de reloj"</string>
     <string name="custom_clocks_label" msgid="8168419717593569347">"Relojes personalizados"</string>
     <string name="clock_face_width" msgid="5818129719338363570">"Ancho de la cara de reloj"</string>
-    <string name="slider_state_description_template" msgid="1028160527998877233">"%1$d, rango de %2$d a %3$d"</string>
+    <string name="enabled_slider_state_description_template" msgid="110185389957126478">"%1$d, rango de %2$d a %3$d"</string>
+    <string name="disabled_slider_state_description_template" msgid="660230299054431711">"inhabilitado, %1$d, rango de %2$d a %3$d"</string>
 </resources>

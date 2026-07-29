@@ -19,13 +19,17 @@ package com.android.customization.model.picker.quickaffordance.data.repository
 
 import androidx.test.filters.SmallTest
 import com.android.customization.picker.quickaffordance.data.repository.KeyguardQuickAffordancePickerRepository
+import com.android.systemui.shared.customization.data.content.CustomizationProviderClient
 import com.android.systemui.shared.customization.data.content.FakeCustomizationProviderClient
 import com.google.common.truth.Truth.assertThat
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
@@ -38,7 +42,7 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class KeyguardQuickAffordancePickerRepositoryTest {
 
-    private lateinit var underTest: KeyguardQuickAffordancePickerRepository
+    private lateinit var repository: KeyguardQuickAffordancePickerRepository
 
     private lateinit var testScope: TestScope
     private lateinit var client: FakeCustomizationProviderClient
@@ -50,21 +54,41 @@ class KeyguardQuickAffordancePickerRepositoryTest {
         testScope = TestScope(coroutineDispatcher)
         Dispatchers.setMain(coroutineDispatcher)
 
-        underTest =
+        repository =
             KeyguardQuickAffordancePickerRepository(
                 client = client,
                 mainScope = testScope.backgroundScope,
             )
     }
 
-    // We need at least one test to prevent Studio errors
-    @Test
-    fun creationSucceeds() {
-        assertThat(underTest).isNotNull()
-    }
-
     @After
     fun tearDown() {
         Dispatchers.resetMain()
     }
+
+    @Test
+    fun refreshAffordancesDueToLocaleChange_callsClient() {
+        val initialVersion = client.refreshVersion
+
+        repository.refreshAffordancesDueToLocaleChange()
+
+        assertThat(client.refreshVersion).isEqualTo(initialVersion + 1)
+    }
+
+    @Test
+    fun affordances_updatesReactively() =
+        testScope.runTest {
+            assertThat(repository.affordances.first().size).isEqualTo(3)
+
+            client.addAffordance(
+                CustomizationProviderClient.Affordance(
+                    id = "affordance_4",
+                    name = "affordance_4",
+                    iconResourceId = 4,
+                )
+            )
+            testScope.advanceUntilIdle()
+
+            assertThat(repository.affordances.first().size).isEqualTo(4)
+        }
 }

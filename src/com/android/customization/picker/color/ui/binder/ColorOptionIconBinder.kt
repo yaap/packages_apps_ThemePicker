@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2024 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,29 +17,56 @@
 
 package com.android.customization.picker.color.ui.binder
 
+import androidx.lifecycle.LifecycleOwner
 import com.android.customization.picker.color.ui.view.ColorOptionIconView
 import com.android.customization.picker.color.ui.viewmodel.ColorOptionIconViewModel
+import com.android.wallpaper.picker.customization.ui.binder.ColorUpdateBinder
+import com.android.wallpaper.picker.customization.ui.binder.DarkModeUpdateBinder
+import com.android.wallpaper.picker.customization.ui.viewmodel.ColorUpdateViewModel
 
 object ColorOptionIconBinder {
+
+    interface Binding {
+        /** Destroys the color update binding, in spite of lifecycle state. */
+        fun destroy()
+    }
+
     fun bind(
         view: ColorOptionIconView,
         viewModel: ColorOptionIconViewModel,
-        darkTheme: Boolean,
-    ) {
-        if (darkTheme) {
-            view.bindColor(
-                viewModel.darkThemeColor0,
-                viewModel.darkThemeColor1,
-                viewModel.darkThemeColor2,
-                viewModel.darkThemeColor3,
+        colorUpdateViewModel: ColorUpdateViewModel,
+        shouldAnimateColor: () -> Boolean,
+        lifecycleOwner: LifecycleOwner,
+    ): Binding {
+        val colorBinding =
+            ColorUpdateBinder.bind(
+                setColor = { color -> view.bindStrokeColor(color) },
+                color = colorUpdateViewModel.colorPrimary,
+                shouldAnimate = shouldAnimateColor,
+                lifecycleOwner = lifecycleOwner,
             )
-        } else {
-            view.bindColor(
-                viewModel.lightThemeColor0,
-                viewModel.lightThemeColor1,
-                viewModel.lightThemeColor2,
-                viewModel.lightThemeColor3,
+        view.bindColor(
+            viewModel.lightThemeColor0,
+            viewModel.lightThemeColor1,
+            viewModel.lightThemeColor2,
+            viewModel.lightThemeColor3,
+            viewModel.darkThemeColor0,
+            viewModel.darkThemeColor1,
+            viewModel.darkThemeColor2,
+            viewModel.darkThemeColor3,
+        )
+        val darkModeBinding =
+            DarkModeUpdateBinder.bind(
+                onProgressChange = { progress -> view.setDarkThemeProgress(progress) },
+                colorUpdateViewModel = colorUpdateViewModel,
+                shouldAnimate = shouldAnimateColor,
+                lifecycleOwner = lifecycleOwner,
             )
+        return object : Binding {
+            override fun destroy() {
+                colorBinding.destroy()
+                darkModeBinding.destroy()
+            }
         }
     }
 }

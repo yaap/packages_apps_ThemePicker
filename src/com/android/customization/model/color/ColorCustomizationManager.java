@@ -22,11 +22,11 @@ import static android.stats.style.StyleEnums.COLOR_SOURCE_UNSPECIFIED;
 
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_COLOR;
 import static com.android.customization.model.ResourceConstants.OVERLAY_CATEGORY_SYSTEM_PALETTE;
-import static com.android.customization.model.color.ColorOptionsProvider.COLOR_SOURCE_PRESET;
-import static com.android.customization.model.color.ColorOptionsProvider.OVERLAY_COLOR_BOTH;
-import static com.android.customization.model.color.ColorOptionsProvider.OVERLAY_COLOR_INDEX;
-import static com.android.customization.model.color.ColorOptionsProvider.OVERLAY_COLOR_SOURCE;
-import static com.android.customization.model.color.ColorOptionsProvider.OVERLAY_THEME_STYLE;
+import static com.android.customization.model.color.ColorProviderUtil.COLOR_SOURCE_PRESET;
+import static com.android.customization.model.color.ColorProviderUtil.OVERLAY_COLOR_BOTH;
+import static com.android.customization.model.color.ColorProviderUtil.OVERLAY_COLOR_INDEX;
+import static com.android.customization.model.color.ColorProviderUtil.OVERLAY_COLOR_SOURCE;
+import static com.android.customization.model.color.ColorProviderUtil.OVERLAY_THEME_STYLE;
 
 import android.app.WallpaperColors;
 import android.content.ContentResolver;
@@ -46,7 +46,7 @@ import androidx.annotation.VisibleForTesting;
 
 import com.android.customization.model.CustomizationManager;
 import com.android.customization.model.ResourceConstants;
-import com.android.customization.model.color.ColorOptionsProvider.ColorSource;
+import com.android.customization.model.color.ColorProviderUtil.ColorSource;
 import com.android.customization.model.theme.OverlayManagerCompat;
 import com.android.customization.module.logging.ThemesUserEventLogger;
 import com.android.themepicker.R;
@@ -78,7 +78,7 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
 
     private static ColorCustomizationManager sColorCustomizationManager;
 
-    private final ColorOptionsProvider mProvider;
+    private final ColorProvider mProvider;
     private final OverlayManagerCompat mOverlayManagerCompat;
     private final ExecutorService mExecutorService;
     private final ContentResolver mContentResolver;
@@ -112,7 +112,7 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
     }
 
     @VisibleForTesting
-    ColorCustomizationManager(ColorOptionsProvider provider, ContentResolver contentResolver,
+    ColorCustomizationManager(ColorProvider provider, ContentResolver contentResolver,
             OverlayManagerCompat overlayManagerCompat, ExecutorService executorService) {
         mProvider = provider;
         mContentResolver = contentResolver;
@@ -182,14 +182,23 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
                     overlaysJson.remove(OVERLAY_COLOR_BOTH);
                 }
             } catch (JSONException e) {
-                e.printStackTrace();
+                Log.w(TAG, "Failed to create theme overlay JSON", e);
             }
-            boolean allApplied = overlaysJson != null && Settings.Secure.putString(
+
+            Log.d(TAG, "Applying theme directly to secure settings: " + overlaysJson);
+            boolean overlayIsNull = overlaysJson == null;
+            boolean allApplied = !overlayIsNull && Settings.Secure.putString(
                     mContentResolver, ResourceConstants.THEME_SETTING, overlaysJson.toString());
             new Handler(Looper.getMainLooper()).post(() -> {
                 if (allApplied) {
                     callback.onSuccess();
                 } else {
+                    if (overlayIsNull) {
+                        Log.w(TAG, "Failed to apply theme to secure settings, overlay JSON is "
+                                + "null");
+                    } else {
+                        Log.w(TAG, "Failed to apply theme to secure settings, putString failed");
+                    }
                     callback.onError(null);
                 }
             });
@@ -198,12 +207,7 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
 
     @Override
     public void fetchOptions(OptionsFetchedListener<ColorOption> callback, boolean reload) {
-        WallpaperColors lockWallpaperColors = mLockWallpaperColors;
-        if (lockWallpaperColors != null && mLockWallpaperColors.equals(mHomeWallpaperColors)) {
-            lockWallpaperColors = null;
-        }
-        mProvider.fetch(callback, reload, mHomeWallpaperColors,
-                lockWallpaperColors);
+        mProvider.fetch(callback, reload, mHomeWallpaperColors);
     }
 
     /**
@@ -233,9 +237,9 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
             return COLOR_SOURCE_UNSPECIFIED;
         }
         return switch (colorSource) {
-            case ColorOptionsProvider.COLOR_SOURCE_PRESET -> COLOR_SOURCE_PRESET_COLOR;
-            case ColorOptionsProvider.COLOR_SOURCE_HOME -> COLOR_SOURCE_HOME_SCREEN_WALLPAPER;
-            case ColorOptionsProvider.COLOR_SOURCE_LOCK -> COLOR_SOURCE_LOCK_SCREEN_WALLPAPER;
+            case ColorProviderUtil.COLOR_SOURCE_PRESET -> COLOR_SOURCE_PRESET_COLOR;
+            case ColorProviderUtil.COLOR_SOURCE_HOME -> COLOR_SOURCE_HOME_SCREEN_WALLPAPER;
+            case ColorProviderUtil.COLOR_SOURCE_LOCK -> COLOR_SOURCE_LOCK_SCREEN_WALLPAPER;
             default -> COLOR_SOURCE_UNSPECIFIED;
         };
     }
@@ -260,8 +264,8 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
 
     /**
      * @return The source of the currently applied color. One of
-     * {@link ColorOptionsProvider#COLOR_SOURCE_HOME},{@link ColorOptionsProvider#COLOR_SOURCE_LOCK}
-     * or {@link ColorOptionsProvider#COLOR_SOURCE_PRESET}.
+     * {@link ColorProviderUtil#COLOR_SOURCE_HOME},{@link ColorProviderUtil#COLOR_SOURCE_LOCK}
+     * or {@link ColorProviderUtil#COLOR_SOURCE_PRESET}.
      */
     @ColorSource
     public @Nullable String getCurrentColorSource() {
@@ -325,6 +329,10 @@ public class ColorCustomizationManager implements CustomizationManager<ColorOpti
      */
     public void setListener(SettingsChangedListener listener) {
         mListener = listener;
+    }
+
+    public ColorProvider getProvider() {
+        return mProvider;
     }
 
     /**

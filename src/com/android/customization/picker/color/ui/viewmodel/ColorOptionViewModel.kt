@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Android Open Source Project
+ * Copyright (C) 2026 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,34 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
 package com.android.customization.picker.color.ui.viewmodel
 
-import android.annotation.ColorInt
+import com.android.wallpaper.picker.common.text.ui.viewmodel.Text
+import com.android.wallpaper.picker.option.ui.compose.OptionBounceable
 
-/**
- * Models UI state for a color options in a picker experience.
- *
- * TODO (b/272109171): Remove after clock settings is refactored to use OptionItemAdapter
- */
 data class ColorOptionViewModel(
-    /** Colors for the color option. */
-    @ColorInt val color0: Int,
-    @ColorInt val color1: Int,
-    @ColorInt val color2: Int,
-    @ColorInt val color3: Int,
-
-    /** A content description for the color. */
-    val contentDescription: String,
-
-    /** Nullable option title. Null by default. */
-    val title: String? = null,
-
-    /** Whether this color is selected. */
-    val isSelected: Boolean,
-
-    /** Notifies that the color has been clicked by the user. */
+    val icon: ColorOptionIconViewModel,
+    val key: String,
     val onClick: (() -> Unit)?,
-)
+    val text: Text,
+    val enableDrillDown: Boolean,
+) : OptionBounceable()

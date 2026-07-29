@@ -37,17 +37,17 @@ import kotlinx.coroutines.flow.shareIn
 @Singleton
 class KeyguardQuickAffordancePickerRepository
 @Inject
-constructor(client: CustomizationProviderClient, @MainDispatcher mainScope: CoroutineScope) {
+constructor(
+    private val client: CustomizationProviderClient,
+    @MainDispatcher private val mainScope: CoroutineScope,
+) {
     /** List of slots available on the device. */
     val slots: Flow<List<SlotModel>> =
         client.observeSlots().map { slots -> slots.map { slot -> slot.toModel() } }
 
     /** List of all available quick affordances. */
     val affordances: Flow<List<AffordanceModel>> =
-        client
-            .observeAffordances()
-            .map { affordances -> affordances.map { affordance -> affordance.toModel() } }
-            .shareIn(mainScope, replay = 1, started = SharingStarted.Lazily)
+        client.observeAffordances().map { affordances -> affordances.map { it.toModel() } }
 
     /** List of slot-affordance pairs, modeling what the user has currently chosen for each slot. */
     val selections: Flow<List<SelectionModel>> =
@@ -56,11 +56,13 @@ constructor(client: CustomizationProviderClient, @MainDispatcher mainScope: Coro
             .map { selections -> selections.map { selection -> selection.toModel() } }
             .shareIn(mainScope, replay = 1, started = SharingStarted.Lazily)
 
+    // Required to reflect locale changes when picker is already open
+    fun refreshAffordancesDueToLocaleChange() {
+        client.refreshAffordances()
+    }
+
     private fun CustomizationProviderClient.Slot.toModel(): SlotModel {
-        return SlotModel(
-            id = id,
-            maxSelectedQuickAffordances = capacity,
-        )
+        return SlotModel(id = id, maxSelectedQuickAffordances = capacity)
     }
 
     private fun CustomizationProviderClient.Affordance.toModel(): AffordanceModel {
@@ -77,9 +79,6 @@ constructor(client: CustomizationProviderClient, @MainDispatcher mainScope: Coro
     }
 
     private fun CustomizationProviderClient.Selection.toModel(): SelectionModel {
-        return SelectionModel(
-            slotId = slotId,
-            affordanceId = affordanceId,
-        )
+        return SelectionModel(slotId = slotId, affordanceId = affordanceId)
     }
 }

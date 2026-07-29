@@ -16,14 +16,17 @@
 
 package com.android.customization.picker.icon.data.repository
 
+import android.content.Context
 import android.stats.style.StyleEnums.APP_ICON_STYLE_THEMED
 import android.stats.style.StyleEnums.APP_ICON_STYLE_UNSPECIFIED
 import com.android.customization.picker.icon.shared.model.IconStyle
 import com.android.customization.picker.icon.shared.model.IconStyleModel
 import com.android.customization.picker.icon.shared.model.ThemePickerIconStyle
 import com.android.wallpaper.config.BaseFlags
+import com.android.wallpaper.picker.common.text.ui.viewmodel.Text
 import com.android.wallpaper.testing.FakePreviewUtils
 import com.android.wallpaper.util.BasePreviewUtils
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
 import kotlinx.coroutines.flow.Flow
@@ -33,7 +36,9 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 
 @Singleton
-class FakeIconStyleRepository @Inject constructor() : IconStyleRepository {
+class FakeIconStyleRepository
+@Inject
+constructor(@ApplicationContext private val context: Context) : IconStyleRepository {
     override val previewUtilsFlow: Flow<BasePreviewUtils?> = flowOf(FakePreviewUtils())
 
     private val _isCustomizationAvailable = MutableStateFlow(true)
@@ -53,18 +58,12 @@ class FakeIconStyleRepository @Inject constructor() : IconStyleRepository {
             ThemePickerIconStyle.entries
                 .toList()
                 // Filter entries if themed icon is not available
-                .filter { isThemedIconAvailable || !it.getIsThemedIcon() }
+                .filter { isThemedIconAvailable || it != ThemePickerIconStyle.MONOCHROME }
                 .map { it.toIconStyleModel() }
         }
 
     private fun IconStyle.toIconStyleModel(): IconStyleModel {
-        return IconStyleModel(
-            iconStyle = this,
-            nameResId = this.nameResId,
-            icon = null,
-            isThemedIcon = this == ThemePickerIconStyle.MONOCHROME,
-            isExternalLink = false,
-        )
+        return IconStyleModel(iconStyle = this, name = Text.Resource(nameResId))
     }
 
     override suspend fun setIconStyle(iconStyle: IconStyle): Boolean {
@@ -75,7 +74,7 @@ class FakeIconStyleRepository @Inject constructor() : IconStyleRepository {
     }
 
     override suspend fun getIconStyleForLogging(): Int {
-        if (BaseFlags.get().isExtendibleThemeManager()) {
+        if (BaseFlags.get(context).isExtendibleThemeManager()) {
             val iconStyle = selectedIconStyle.value
             return iconStyle.loggingId ?: APP_ICON_STYLE_UNSPECIFIED
         } else {
@@ -90,5 +89,12 @@ class FakeIconStyleRepository @Inject constructor() : IconStyleRepository {
 
     fun setIsCustomizationAvailable(isAvailable: Boolean) {
         _isCustomizationAvailable.value = isAvailable
+    }
+
+    private val _shouldShowAppLabels = MutableStateFlow(false)
+    override val shouldShowAppLabels = _shouldShowAppLabels.asStateFlow()
+
+    override suspend fun setShouldShowAppLabels(shouldShowAppLabels: Boolean) {
+        _shouldShowAppLabels.value = shouldShowAppLabels
     }
 }

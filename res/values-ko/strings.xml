@@ -49,6 +49,8 @@
     <string name="clock_font_editor_apply" msgid="5965611025879105293">"시계 글꼴 변경사항 적용"</string>
     <string name="clock_font_editor_revert" msgid="5307491447405753061">"시계 글꼴 변경사항 실행취소"</string>
     <string name="clock_style_round_clock" msgid="1694787561051568664">"모서리가 둥근 글꼴 시계"</string>
+    <string name="clock_style_sharp_clock" msgid="1534034367317255693">"각진 스타일의 시계"</string>
+    <string name="change_clock_style_content_description" msgid="5831805715265928702">"<xliff:g id="ID_1">%1$s</xliff:g>. 시계 스타일을 변경하려면 탭하세요."</string>
     <string name="clock_style_update_toast" msgid="6933583129162805444">"스타일이 <xliff:g id="ID_1">%1$s</xliff:g> 스타일로 변경되었습니다. 실행취소하려면 다시 탭하세요."</string>
     <string name="clock_style_round" msgid="261319982647730366">"둥근 모서리"</string>
     <string name="clock_style_sharp" msgid="453991773733285628">"각진 모서리"</string>
@@ -62,6 +64,9 @@
     <string name="app_icons_style_default" msgid="2568057806991656437">"기본"</string>
     <string name="app_icons_style_minimal" msgid="4905227469969513136">"최소"</string>
     <string name="app_icons_shape" msgid="2539949450435849188">"도형"</string>
+    <string name="app_labels" msgid="4290052401987798752">"앱 라벨"</string>
+    <string name="app_names" msgid="708691253698583169">"이름"</string>
+    <string name="show_app_names" msgid="522703901790555973">"앱 이름 표시"</string>
     <string name="app_icons_style" msgid="993356162262531521">"스타일"</string>
     <string name="apply_theme_btn" msgid="6293081192321303991">"적용"</string>
     <string name="edit_custom_theme_lbl" msgid="5211377705710775224">"탭하여 수정"</string>
@@ -136,9 +141,12 @@
     <string name="wallpaper_color_title" msgid="5687965239180986458">"배경화면 색상"</string>
     <string name="preset_color_tab" msgid="3133391839341329314">"기본 색상"</string>
     <string name="preset_color_tab_2" msgid="1444107326712562538">"기타 색상"</string>
-    <string name="preset_color_subheader" msgid="8230588536141279371">"아이콘, 시계 등을 위한 색상을 선택하세요"</string>
+    <string name="preset_color_subheader" msgid="8230588536141279371">"아이콘, 시계 등에 적용될 색상을 선택하세요"</string>
     <string name="color_changed" msgid="7029571720331641235">"색상 변경됨"</string>
     <string name="adaptive_color_title" msgid="1336508599235896205">"동적"</string>
+    <string name="freeform_color_title" msgid="7237399756373189892">"내 색상"</string>
+    <string name="wallpaper_color_title_2" msgid="5292059876778066808">"배경화면 색상"</string>
+    <string name="cmf_color_title" msgid="3224736567184119951">"하드웨어 색상"</string>
     <string name="color_picker_title" msgid="6666830057938082864">"시스템 색상"</string>
     <string name="system_colors_title" msgid="8011422955674152731">"색상"</string>
     <string name="screen_saver_title" msgid="4178511806237734356">"화면 보호기"</string>
@@ -167,11 +175,19 @@
     <string name="content_description_neutral_color_option" msgid="3385443834001275301">"기본 보통 테마"</string>
     <string name="content_description_vibrant_color_option" msgid="2230249305878632821">"기본 활기 테마"</string>
     <string name="content_description_expressive_color_option" msgid="6081295313456341282">"기본 표현 테마"</string>
+    <string name="color_variant_option_label_neutral" msgid="4412085293640372330">"뉴트럴"</string>
+    <string name="color_variant_option_label_soft" msgid="5073290767548293847">"소프트"</string>
+    <string name="color_variant_option_label_bright" msgid="3764688816491282376">"브라이트"</string>
+    <string name="color_variant_option_label_bold" msgid="7239402636388565778">"볼드"</string>
+    <string name="color_variant_editor_apply" msgid="6735218825751029812">"테마 스타일 변경 적용"</string>
+    <string name="color_variant_editor_revert" msgid="1786509144393262567">"테마 스타일 변경 실행취소"</string>
+    <string name="color_freeform_editor_description" msgid="1019960558215074662">"색상 선택"</string>
     <string name="content_description_default_color_option" msgid="7011899327541080695">"기본 색상 옵션"</string>
     <string name="content_description_color_option" msgid="4169813692012119578">"<xliff:g id="ID_1">%1$d</xliff:g> 색상 옵션"</string>
     <string name="scroll_forward_and_select" msgid="6156132388656395769">"왼쪽으로 스와이프하여 다른 시계 페이스 선택"</string>
     <string name="scroll_backward_and_select" msgid="5472202348434803757">"오른쪽으로 스와이프하여 다른 시계 페이스 선택"</string>
     <string name="custom_clocks_label" msgid="8168419717593569347">"시계 페이스 맞춤설정"</string>
     <string name="clock_face_width" msgid="5818129719338363570">"시계 페이스 너비"</string>
-    <string name="slider_state_description_template" msgid="1028160527998877233">"%1$d, 범위: %2$d~%3$d"</string>
+    <string name="enabled_slider_state_description_template" msgid="110185389957126478">"%1$d, 범위: %2$d~%3$d"</string>
+    <string name="disabled_slider_state_description_template" msgid="660230299054431711">"사용 중지됨, %1$d, 범위: %2$d~%3$d"</string>
 </resources>
